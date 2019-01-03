@@ -1,0 +1,33 @@
+{% load static %}
+<html>
+
+<head>
+    <title>Think Tank | {% block title%}{%endblock%}</title>
+    <link rel="stylesheet" href={% static "bootstrap/css/bootstrap.min.css" %} />
+    <link rel="stylesheet" href={% static "custom/css/style.css" %} />
+</head>
+
+<body>
+    {% include "homepage/_head.html"%}
+    {% include "homepage/_navbar.html"%}
+    <div class="container" style="background: rgb(243  , 246, 253);">
+        <div class="left_bar">
+            <ul>
+                <li>Softwares(opensource)</li>
+                <li>Configuration</li>
+                <li>Working with projects</li>
+                <li>Technologies</li>
+                <li><a href="{% url 'blogs:blog_list'%}">Blogs</a></li>
+                <li><a href="{% url 'forums:forum_list' %}">Forums</a></li>
+                <li>Feedback</li>
+            </ul>
+        </div>
+        <div class="right_bar">
+            {% block content %}
+            {% endblock %}
+        </div>
+    </div>
+    {% include "homepage/_footer.html"%}
+</body>
+
+</html>

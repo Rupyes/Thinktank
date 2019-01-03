@@ -1,0 +1,11 @@
+{% extends 'thinktank/base.html' %}
+
+{% block title %}Faculties{% endblock%}
+
+{% block content %}
+{% for faculty in faculty_list %}
+<h2>{{ faculty.get_full_name }}</h2>
+{% empty%}
+<h2>No faculty. :(</h2>
+{% endfor%}
+{% endblock %}

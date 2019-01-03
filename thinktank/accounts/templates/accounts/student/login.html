@@ -1,0 +1,11 @@
+{% extends 'thinktank/base.html' %}
+
+{% block title %}Student Login{% endblock%}
+
+{% block content %}
+<form method="POST">
+    {% csrf_token %}
+    {{form.as_p}}
+    <input type="submit" class="btn primary-btn" value="Log In" />
+</form>
+{% endblock %}

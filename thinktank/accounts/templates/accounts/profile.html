@@ -1,0 +1,38 @@
+{% extends 'thinktank/base.html' %}
+
+{% block title %}Profile{% endblock%}
+
+{% block content %}
+
+
+{% if user.is_authenticated %}
+
+
+{% if request.user.is_student %}
+<h1>Welcome student {{request.user.username}}</h1>
+<h4>Email: {{request.user.email}}</h4>
+<h4>College: {{request.user.student.college}}</h4>
+<h4>Department: {{request.user.student.department}}</h4>
+<p><a href="{% url 'accounts:change_password'%}">Change Password</a></p>
+<p><a href="{% url 'accounts:stud_update_profile' username=request.user.username%}">Update Profile</a></p>
+{% endif %}
+
+
+{% if request.user.is_faculty %}
+<h1>Welcome faculty {{request.user.username}}</h1>
+<h4>Email: {{request.user.email}}</h4>
+<h4>College: {{request.user.faculty.college}}</h4>
+<h4>Department: {{request.user.faculty.department}}</h4>
+<p><a href="{% url 'accounts:change_password'%}">Change Password</a></p>
+<p><a href="{% url 'accounts:faculty_update_profile' username=request.user.username%}">Update Profile</a></p>
+{% endif %}
+
+
+{% endif %}
+{% if not user.is_authenticated %}
+<a href="{% url 'homepage:index'%}">Back to home..</a>
+{% endif %}
+
+
+
+{% endblock %}

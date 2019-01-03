@@ -1,0 +1,17 @@
+{% extends 'thinktank/base.html' %}
+
+{% block title %}Dashboard{% endblock%}
+
+{% block content %}
+{% if user.is_faculty %}
+<h3>Welcome faculty {{request.user.username}}</h3>
+<h1>Blogs</h1>
+{% for blog in my_blog_list %}
+<p><a href="{% url 'blogs:blog_detail' pk=blog.pk%}">{{ blog.title }}</a></p>
+{% endfor %}
+<a class="btn btn-dark" href="{% url 'blogs:create_blog' %}" style="color:white">
+    <span class="glyphicon glyphicon-user"></span>Create
+</a>
+{%endif%}
+
+{% endblock %}

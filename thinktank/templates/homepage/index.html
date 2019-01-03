@@ -1,0 +1,33 @@
+{% extends 'thinktank/base.html' %}
+
+{% block title %}HomePage{% endblock%}
+
+{% block content %}
+<div class="login_faculty">
+    {% if not user.is_authenticated%}
+    <h3>Login!!</h3>
+    <form method="post" class="form">
+        {% csrf_token %}
+        {{form.as_p}}
+        <input class="btn btn-primary" type="submit" value="Login" />
+        <p>New User? Register for:
+            <a href="{% url 'accounts:stud_register' %}">Student</a> or
+            <a href="{% url 'accounts:faculty_register' %}">Faculty</a></p>
+    </form>
+    {% endif%}
+    {% if user.is_authenticated%}
+    <h2>Hi! {{ request.user.first_name}}</h2>
+    <p><a href="{% url 'accounts:logout'%}">Logout</a></p>
+    {% endif %}
+</div>
+<div class="desc">
+    <p style="margin-left: 15px; text-justify: auto;">
+        Welcome to the Konaseema Think Tank. The purpose of this website is to bring all intellectuals on
+        one platform and provide them a forum for innovation, creativity and sharing intellectual
+        solutions and services to the researchers, student community and citizens.
+    </p>
+</div>
+
+
+
+{% endblock%}

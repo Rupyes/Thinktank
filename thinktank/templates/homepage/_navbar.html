@@ -1,0 +1,25 @@
+<div class="menu">
+    <hr style="background: #000;">
+    <div class="container">
+        <nav class="nav nav-pills nav-fill">
+            <a class="nav-item nav-link" href="{% url 'homepage:index'%}">Home</a>
+            <a class="nav-item nav-link" href="#">About</a>
+            <a class="nav-item nav-link" href="#">Guest</a>
+            <a class="nav-item nav-link" href="{% url 'accounts:faculty_list'%}">Faculty</a>
+            <a class="nav-item nav-link" href="#">Students</a>
+            <a class="nav-item nav-link" href="#">Critics</a>
+            <a class="nav-item nav-link" href="#">Events</a>
+            <a class="nav-item nav-link" href="#">Contact</a>
+            {% if user.is_authenticated and user.is_student %}
+            <a class="nav-item nav-link" href="{% url 'accounts:profile' username=request.user.username %}">Profile</a>
+            <a class="nav-item nav-link" href="{% url 'accounts:logout'%}">Logout</a>
+            {% endif %}
+            {% if user.is_authenticated and user.is_faculty %}
+            <a class="nav-item nav-link" href="{% url 'accounts:profile' username=request.user.username %}">Profile</a>
+            <a class="nav-item nav-link" href="{% url 'accounts:dashboard' username=request.user.username %}">Dashboard</a>
+            <a class="nav-item nav-link" href="{% url 'accounts:logout'%}">Logout</a>
+            {% endif %}
+        </nav>
+    </div>
+    <hr style="background: #000;">
+</div>

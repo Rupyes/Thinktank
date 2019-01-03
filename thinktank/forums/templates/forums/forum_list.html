@@ -1,0 +1,21 @@
+{% extends 'thinktank/base.html' %}
+
+{% block title %}Forums{% endblock%}
+
+{% block content %}
+<h3>Forums</h3>
+<hr>
+{% for forum in forum_list%}
+<p>
+    <li><a href="{% url 'forums:forum_detail' pk=forum.pk%}">{{forum.q_title}}
+            [{{forum.questioner}}] </a>
+        {% with total=forum.comments.count%}
+        - {{total}} comment{{total|pluralize}}
+        {% endwith%}
+</p>
+{% empty%}
+<p>No forums.</p>
+{% endfor %}
+<hr>
+<a class="btn btn-secondary" href="{% url 'forums:create_forum' %}">Create Forum</a>
+{% endblock%}

@@ -1,0 +1,14 @@
+{% extends 'thinktank/base.html' %}
+
+{% block title %}Comment{% endblock%}
+
+{% block content %}
+
+<h2>Comment</h2>
+<form action="" method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Reply" class="btn btn-primary">
+</form>
+
+{% endblock %}

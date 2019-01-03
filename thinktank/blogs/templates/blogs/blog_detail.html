@@ -1,0 +1,15 @@
+{% extends 'thinktank/base.html' %}
+
+{% block title %}Details{% endblock%}
+
+{% block content %}
+<h1>{{blog.title}}</h1>
+<p>by: {{blog.user.get_full_name}}</p>
+<p>published on: {{blog.created_date | date}}</p>
+<hr>
+<p>{{blog.text|linebreaks}}</p>
+{% if request.user.username == blog.user.user.username %}
+<a class="btn btn-primary" href="{% url 'blogs:blog_update' pk=blog.pk%}">Update</a>
+<a class="btn btn-danger" href="{% url 'blogs:blog_delete' pk=blog.pk%}">Delete</a>
+{% endif %}
+{% endblock%}

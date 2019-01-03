@@ -1,0 +1,15 @@
+{% extends 'thinktank/base.html' %}
+
+{% block title %}Create{% endblock%}
+
+{% block content %}
+<h1>New Blog</h1>
+<form class="post-form" method="POST">
+    {% csrf_token %}
+
+    {{form.as_p}}
+
+    <input type="submit" class="save btn btn-default" value="Create">
+
+</form>
+{% endblock %}

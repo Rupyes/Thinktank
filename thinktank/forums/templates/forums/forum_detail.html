@@ -1,0 +1,35 @@
+{% extends 'thinktank/base.html' %}
+
+{% block title %}Forum Detail{% endblock%}
+
+{% block content %}
+<h4>Q: {{forum.q_title}}</h4>
+<p style="font-size:12px; font-style: italic;">Asked by: {{forum.questioner}}</p>
+<p>{{forum.detail}}</p>
+<hr>
+{% if not user.is_authenticated %}
+<p style="text-align: right"> <a href="{% url 'homepage:index'%}">Login to Reply</a> </p>
+{% endif %}
+{% if user.is_authenticated %}
+<p style="text-align: right"> <a href="{% url 'forums:add_comment_to_forum' pk=forum.pk%}">Reply</a> </p>
+{% endif %}
+{% for comment in forum.comments.all %}
+
+<p style="font-size:18px;">{{comment.text|safe}}</p>
+<p style="font-size:12px; font-style: italic;">Reply by: {{comment.reply_by}} to {{ comment.reply_to}}</p>
+<p style="text-align: right"> <a href="{% url 'forums:reply_to_comment' pk=forum.pk pk1=comment.pk%}">Reply</a></p>
+{% for sub_comment in comment.sub_comments.all %}
+<div style="margin-left:5px;border-left: 1px solid #000;">
+    <p style="font-size:18px;">{{sub_comment.text|safe}}</p>
+    <p style="font-size:12px; font-style: italic;">Reply by: {{sub_comment.reply_by}} to {{ sub_comment.reply_to}}</p>
+    <p style="text-align: right"> <a href="{% url 'forums:reply_to_reply' pk=forum.pk pk1=comment.pk msg='reply'%}">Reply</a></p>
+</div>
+{% endfor %}
+{%empty%}
+<p>No reply yet.</p>
+
+
+{% endfor %}
+
+
+{% endblock%}
