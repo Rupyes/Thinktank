@@ -15,3 +15,7 @@ def index(request, *args, **kwargs):
     else:
         form = UserLoginForm()
     return render(request, 'homepage/index.html', {'form': form})
+
+
+def about(request):
+    return render(request, 'homepage/about.html')

@@ -30,6 +30,9 @@
         | edited on: {{comment.edited_on}}
     </p>
     <p style="text-align: right">
+        {% if not user.is_authenticated %}
+        Login to Reply |
+        {% endif %}
         <a href="{% url 'forums:reply_to_comment' pk=forum.pk pk1=comment.pk%}">Reply</a>
         {% if request.user == comment.reply_by %}
         | <a href="{% url 'forums:comment_update' pk=comment.pk%}">Edit</a>
@@ -48,6 +51,9 @@
         | edited on: {{sub_comment.edited_on}}
     </p>
     <p style="text-align: right">
+        {% if not user.is_authenticated %}
+        Login to Reply |
+        {% endif %}
         <a href="{% url 'forums:reply_to_comment' pk=forum.pk pk1=comment.pk%}">Reply</a>
         {% if request.user == sub_comment.reply_by %}
         | <a href="{% url 'forums:reply_update' pk=sub_comment.pk%}">Edit</a>

@@ -17,5 +17,8 @@
 <p>No forums.</p>
 {% endfor %}
 <hr>
+{% if not user.is_authenticated %}
+<p> <a href="{% url 'homepage:index'%}">Login to create forum</a> </p>
+{% endif %}
 <a class="btn btn-secondary" href="{% url 'forums:create_forum' %}">Create Forum</a>
 {% endblock%}
