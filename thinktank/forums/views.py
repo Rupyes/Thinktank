@@ -1,4 +1,5 @@
 from django.shortcuts import render, get_object_or_404, redirect
+from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
 from django.views.generic import (
@@ -39,6 +40,19 @@ class ForumCreateView(LoginRequiredMixin, CreateView):
         return super().form_valid(form)
 
 
+class ForumUpdateView(LoginRequiredMixin, UpdateView):
+    login_url = "/"
+    model = Forum
+    redirect_field_name = 'forums/forum_detail.html'
+    form_class = ForumForm
+
+
+class ForumDeleteView(LoginRequiredMixin, DeleteView):
+    login_url = "/"
+    model = Forum
+    success_url = reverse_lazy('forums:forum_list')
+
+
 # comments
 @login_required
 def add_comment_to_forum(request, pk):
@@ -55,6 +69,14 @@ def add_comment_to_forum(request, pk):
     else:
         form = CommentForm()
     return render(request, 'forums/comment_form.html', {'form': form})
+
+
+@login_required
+def comment_remove(request, pk, pk1):
+    comment = get_object_or_404(Comment, pk=pk1)
+    forum_pk = comment.forum.pk
+    comment.delete()
+    return redirect('forums:forum_detail', pk=forum_pk)
 
 
 # reply on comments
@@ -76,17 +98,22 @@ def reply_to_comment(request, **kwargs):
 
 
 @login_required
-def reply_to_reply(request, **kwargs):
-    comment = get_object_or_404(CommentOnComment, pk=kwargs.get('pk1'))
-    if request.method == 'POST':
-        form = CommentOnCommentForm(request.POST)
-        if form.is_valid():
-            reply = form.save(commit=False)
-            reply.comment = comment
-            reply.reply_to = comment.reply_by
-            reply.reply_by = request.user
-            reply.save()
-            return redirect('forums:forum_detail', pk=comment.forum.pk)
-    else:
-        form = CommentOnCommentForm()
-    return render(request, 'forums/comment_form.html', {'form': form})
+def reply_remove(request, pk, pk1, pk2):
+    sub_comment = get_object_or_404(CommentOnComment, pk=pk2)
+    sub_comment.delete()
+    return redirect('forums:forum_detail', pk=pk)
+
+
+class CommentUpdateView(LoginRequiredMixin, UpdateView):
+    login_url = "/"
+    model = Comment
+    redirect_field_name = 'forums/forum_detail.html'
+    form_class = CommentForm
+
+
+class ReplyUpdateView(LoginRequiredMixin, UpdateView):
+    login_url = "/"
+    model = CommentOnComment
+    redirect_field_name = 'forums/forum_detail.html'
+    form_class = CommentOnCommentForm
+    template_name = 'forums/comment_form.html'

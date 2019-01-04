@@ -55,8 +55,8 @@ class CommentOnComment(models.Model):
         User, related_name='comment_reply_by', on_delete=models.CASCADE)
 
     def __str__(self):
-        return "{} replied on {} to {}".format(
-            self.reply_by, self.comment.forum, self.reply_to)
+        return "{} replied on {} ".format(
+            self.reply_by, self.comment.forum)
 
     def get_absolute_url(self):
         return reverse(

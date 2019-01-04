@@ -1,0 +1,11 @@
+{% extends 'thinktank/base.html' %}
+
+{% block title %}Delete?{% endblock%}
+
+{% block content %}
+<form action="" method="POST">
+    {% csrf_token %}
+    <p>Are you sure want to delete? {{ object }}</p>
+    {{form.as_p}}
+    <input class="btn btn-danger" type="submit" value="Confirm">
+</form> {% endblock %}
