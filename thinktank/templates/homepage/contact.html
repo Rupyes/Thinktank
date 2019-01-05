@@ -1,0 +1,17 @@
+{% extends 'thinktank/base.html' %}
+
+{% block title %}About{% endblock%}
+
+{% block content %}
+
+<h1>Contact Us</h1>
+<form action="" method="POST">
+    {% csrf_token%}
+    {{form.as_p}}
+    <input type="submit" value="Send" class="btn btn-primary">
+</form>
+
+
+
+
+{% endblock%}

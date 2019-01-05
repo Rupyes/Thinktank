@@ -9,7 +9,7 @@
             <a class="nav-item nav-link" href="#">Students</a>
             <a class="nav-item nav-link" href="#">Critics</a>
             <a class="nav-item nav-link" href="#">Events</a>
-            <a class="nav-item nav-link" href="#">Contact</a>
+            <a class="nav-item nav-link" href="{% url 'homepage:contact' %}">Contact</a>
             {% if user.is_authenticated and user.is_student %}
             <a class="nav-item nav-link" href="{% url 'accounts:profile' username=request.user.username %}">Profile</a>
             <a class="nav-item nav-link" href="{% url 'accounts:logout'%}">Logout</a>

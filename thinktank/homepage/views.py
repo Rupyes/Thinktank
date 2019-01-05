@@ -1,6 +1,7 @@
 from django.shortcuts import render, HttpResponseRedirect
 from django.http import HttpResponse
 from accounts.forms import UserLoginForm
+from .forms import ContactUsForm
 from django.contrib.auth import login
 
 
@@ -19,3 +20,14 @@ def index(request, *args, **kwargs):
 
 def about(request):
     return render(request, 'homepage/about.html')
+
+
+def contact(request):
+    if request.method == 'POST':
+        form = ContactUsForm(request.POST)
+        if form.is_valid():
+            pass
+    else:
+        form = ContactUsForm()
+
+    return render(request, 'homepage/contact.html', {'form': form})
