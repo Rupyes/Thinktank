@@ -13,6 +13,7 @@ from django.views.generic import (
 
 from .models import Student, Faculty
 from blogs.models import Blog
+from forums.models import Forum
 from .forms import (
     StudentSignUpForm,
     UserLoginForm,
@@ -158,7 +159,8 @@ class DashboardView(LoginRequiredMixin, TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        print(self.request.user.faculty)
         context['my_blog_list'] = Blog.objects.filter(
             user__user__username__iexact=self.request.user.faculty)
+        context['my_forum_list'] = Forum.objects.filter(
+            questioner__username__iexact=self.request.user)
         return context

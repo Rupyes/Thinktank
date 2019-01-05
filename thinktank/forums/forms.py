@@ -6,7 +6,7 @@ from .models import Forum, Comment, CommentOnComment
 class ForumForm(forms.ModelForm):
     class Meta:
         model = Forum
-        fields = ('q_title', 'detail')
+        fields = ('q_title', 'detail', 'tag',)
 
         widgets = {
             'q_title': forms.TextInput(attrs={'class': 'form-control'}),

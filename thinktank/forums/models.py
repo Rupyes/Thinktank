@@ -3,12 +3,21 @@ from django.contrib.auth import get_user_model
 from django.utils import timezone
 from django.shortcuts import reverse
 
+TAGS = (('CS',
+         'Computer Science'), ('Mech',
+                               'Mechanical'),
+        ('EE', 'Electrical and Electronics'),
+        ('C', 'Civil'),
+        ('EC', 'Electronics and Communication'),
+        ('O', 'Other'))
+
 # Create your models here.
 User = get_user_model()
 
 
 class Forum(models.Model):
     questioner = models.ForeignKey(User, on_delete=models.CASCADE)
+    tag = models.CharField(max_length=5, choices=TAGS, default='O')
     q_title = models.CharField(max_length=255)
     detail = models.TextField()
     asked_on = models.DateTimeField(auto_now_add=True)

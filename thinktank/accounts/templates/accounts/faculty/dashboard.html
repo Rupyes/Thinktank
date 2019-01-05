@@ -6,12 +6,37 @@
 {% if user.is_faculty %}
 <h3>Welcome faculty {{request.user.username}}</h3>
 <h1>Blogs</h1>
-{% for blog in my_blog_list %}
-<p><a href="{% url 'blogs:blog_detail' pk=blog.pk%}">{{ blog.title }}</a></p>
-{% endfor %}
+<hr>
+<ul>
+    {% for blog in my_blog_list %}
+    <li>
+        <a href="{% url 'blogs:blog_detail' pk=blog.pk%}">{{ blog.title }}</a>
+        - posted on: {{blog.created_date}}
+    </li>
+    {% empty %}
+    <p>No blogs.</p>
+    {% endfor %}
+</ul>
+<hr>
 <a class="btn btn-dark" href="{% url 'blogs:create_blog' %}" style="color:white">
-    <span class="glyphicon glyphicon-user"></span>Create
+    Create
 </a>
 {%endif%}
-
+<hr>
+<h1>Forums</h1>
+<hr>
+<ul>
+    {% for forum in my_forum_list %}
+    <li>
+        <a href="{% url 'forums:forum_detail' pk=forum.pk%}">{{ forum.q_title }}</a>
+        - posted on: {{forum.asked_on}}
+    </li>
+    {% empty %}
+    <p>No forums.</p>
+    {% endfor %}
+</ul>
+<hr>
+<a class="btn btn-dark" href="{% url 'blogs:create_blog' %}" style="color:white">
+    Create
+</a>
 {% endblock %}
