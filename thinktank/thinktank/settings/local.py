@@ -44,6 +44,8 @@ INSTALLED_APPS = [
     'accounts',
     'blogs',
     'forums',
+    'events',
+    'materials',
 ]
 
 MIDDLEWARE = [
