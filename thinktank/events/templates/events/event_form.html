@@ -6,7 +6,23 @@
 <h2>Event</h2>
 <form action="" method="POST" enctype="multipart/form-data">
     {% csrf_token %}
-    {{form.as_p}}
+    {{eventForm.as_p}}
+    <h4>Images:</h4>
+    <hr>
+    {{ formset.management_form }}
+    <ul style="padding:0; list-style: none;">
+        <li>{{formset.1}}</li>
+        <li>{{formset.2}}</li>
+        <li>{{formset.3}}</li>
+        <li>{{formset.4}}</li>
+        <li>{{formset.5}}</li>
+        <li>{{formset.6}}</li>
+        <li>{{formset.7}}</li>
+        <li>{{formset.8}}</li>
+        <li>{{formset.9}}</li>
+        <li>{{formset.10}}</li>
+    </ul>
+
     <input type="submit" class="btn" name="" id="">
 </form>
 {% endblock %}
