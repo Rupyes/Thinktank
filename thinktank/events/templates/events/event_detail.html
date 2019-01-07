@@ -1,0 +1,14 @@
+{% extends 'thinktank/base.html' %}
+
+{% block title %}Events{% endblock%}
+
+{% block content %}
+<h1>{{event.title}} </h1>
+{% if event.photo%}
+<img src="{{event.photo.url}}" alt="" width="400">
+{% endif %}
+<p style="font-size:15px; font-style:italic;">-at: {{event.venue}}</p>
+<p>{{event.description}}</p>
+
+<a href="{% url 'events:event_delete' pk=event.pk%}">Delete</a>
+{% endblock %}

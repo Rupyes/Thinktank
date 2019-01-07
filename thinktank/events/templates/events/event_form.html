@@ -1,0 +1,12 @@
+{% extends 'thinktank/base.html' %}
+
+{% block title %}Create Event{% endblock%}
+
+{% block content %}
+<h2>Event</h2>
+<form action="" method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{form.as_p}}
+    <input type="submit" class="btn" name="" id="">
+</form>
+{% endblock %}
