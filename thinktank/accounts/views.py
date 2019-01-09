@@ -14,6 +14,7 @@ from django.views.generic import (
 from .models import Student, Faculty
 from blogs.models import Blog
 from forums.models import Forum
+from events.models import Event
 from .forms import (
     StudentSignUpForm,
     UserLoginForm,
@@ -163,4 +164,6 @@ class DashboardView(LoginRequiredMixin, TemplateView):
             user__user__username__iexact=self.request.user.faculty)
         context['my_forum_list'] = Forum.objects.filter(
             questioner__username__iexact=self.request.user)
+        context['my_event_list'] = Event.objects.filter(
+            user__user__username__iexact=self.request.user.faculty)
         return context

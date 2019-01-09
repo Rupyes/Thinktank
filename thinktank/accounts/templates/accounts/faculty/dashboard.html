@@ -23,6 +23,8 @@
 </a>
 {%endif%}
 <hr>
+
+
 <h1>Forums</h1>
 <hr>
 <ul>
@@ -36,7 +38,25 @@
     {% endfor %}
 </ul>
 <hr>
-<a class="btn btn-dark" href="{% url 'blogs:create_blog' %}" style="color:white">
+<a class="btn btn-dark" href="{% url 'forums:create_forum' %}" style="color:white">
+    Create
+</a>
+<hr>
+
+
+<h1>Events</h1>
+<hr>
+<ul>
+    {% for event in my_event_list %}
+    <li>
+        <a href="{% url 'events:event_detail' pk=event.pk%}">{{ event.title }}</a>
+    </li>
+    {% empty %}
+    <p>No events.</p>
+    {% endfor %}
+</ul>
+<hr>
+<a class="btn btn-dark" href="{% url 'events:post_event' %}" style="color:white">
     Create
 </a>
 {% endblock %}
