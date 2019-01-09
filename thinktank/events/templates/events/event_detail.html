@@ -13,9 +13,25 @@
 
 <a class="btn btn-primary" href="{% url 'events:event_edit' pk=event.pk%}">Edit</a>
 {% endif %}
-<h3>Photos</h3>
-<hr>
+
+{% if not request.user.is_faculty and event.event_pics.all %}
 <div style="padding-bottom:  5px;float: left; width: 100%;">
+    <h3>Photos</h3>
+    <hr>
+    <div style="width: 658px; float:left; background: #ddd;">
+        {% for eventphoto in event.event_pics.all %}
+        <div style="border:1px dashed #000; margin-left: 5px; margin-top:5px; float: left;">
+            <img src="{{eventphoto.thumbnail.url}}" class="img-thumbnail" alt="">
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endif %}
+
+{% if request.user.is_faculty %}
+<div style="padding-bottom:  5px;float: left; width: 100%;">
+    <h3>Photos</h3>
+    <hr>
     <div style="width: 658px; float:left; background: #ddd;">
         {% for eventphoto in event.event_pics.all %}
         <div style="border:1px dashed #000; margin-left: 5px; margin-top:5px; float: left;">
@@ -29,9 +45,52 @@
         <img style="background:#ddd; width:100;float: right;" src="/media/icons/add_img.png" alt="">
     </a>
 </div>
+{% endif %}
+
+{% if not request.user.is_faculty and event.event_videos.all %}
+<div style="padding-bottom:  5px;float: left; width: 100%;">
+    <hr>
+    <h3>Videos</h3>
+    <hr>
+    <div style="width: 658px; float:left; background: #ddd;">
+        {% for eventvideo in event.event_videos.all %}
+        <div style="border:1px dashed #000; margin-left: 5px; margin-top:5px; float:left;">
+            <video width="400" controls muted>
+                <source src="{{eventvideo.video.url}}" type="video/mp4">
+                </source>
+            </video>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endif %}
+
+{% if request.user.is_faculty %}
+<div style="padding-bottom:  5px;float: left; width: 100%;">
+    <hr>
+    <h3>Videos</h3>
+    <hr>
+    <div style="width: 658px; float:left; background: #ddd;">
+        {% for eventvideo in event.event_videos.all %}
+        <div style="border:1px dashed #000; margin-left: 5px; margin-top:5px; float:left;">
+            <video width="400" controls muted>
+                <source src="{{eventvideo.video.url}}" type="video/mp4">
+                </source>
+            </video>
+            <p style="margin-left:10px;"> <a href="{% url 'events:delete_video' pk=event.pk pk1=eventvideo.pk%}">X</a>
+        </div>
+
+        {% endfor %}
+    </div>
+    <a href="{% url 'events:add_video' pk=event.pk%}">
+        <img style="background:#ddd; width:100;float: right;" src="/media/icons/add_video_icon.png" alt="">
+    </a>
+</div>
+{% endif %}
 
 {% if user.is_authenticated and event.user == request.user.faculty %}
-<a class="btn btn-danger" href="{% url 'events:event_delete' pk=event.pk%}">Delete</a>
+<a class="btn btn-danger" href="{% url 'events:event_delete' pk=event.pk%}">Delete this event</a>
 {% endif %}
+
 
 {% endblock %}

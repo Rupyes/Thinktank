@@ -20,7 +20,7 @@ def user_directory_path_img(instance, filename):
 def user_directory_path_vid(instance, filename):
     ext = filename.split('.')[-1]
     filename = "video_{}.{}".format(str(uuid.uuid4()), ext)
-    return os.path.join('video', 'event', filename)
+    return os.path.join('videos', 'event', filename)
 
 
 def store_thumnail(instance, filename):
@@ -41,6 +41,16 @@ class Event(models.Model):
 
     def get_absolute_url(self):
         return reverse('events:event_detail', kwargs={'pk': self.pk})
+
+
+class EventVideo(models.Model):
+    event = models.ForeignKey(
+        Event, on_delete=models.CASCADE, related_name='event_videos')
+    video = models.FileField(
+        upload_to=user_directory_path_vid, blank=True, null=True)
+
+    def __str__(self):
+        return self.event.title
 
 
 class EventPhoto(models.Model):
@@ -111,6 +121,13 @@ def auto_delete_file_on_delete(sender, instance, **kwargs):
     if instance.thumbnail:
         if os.path.isfile(instance.thumbnail.path):
             os.remove(instance.thumbnail.path)
+
+
+@receiver(models.signals.post_delete, sender=EventVideo)
+def auto_delete_video_on_delete(sender, instance, **kwargs):
+    if instance.video:
+        if os.path.isfile(instance.video.path):
+            os.remove(instance.video.path)
 
 
 @receiver(models.signals.pre_save, sender=EventPhoto)

@@ -13,6 +13,12 @@
     {% for form in formset %}
     {{form.as_p}}
     {% endfor %}
+    <h4>Videos:</h4>
+    <hr>
+    {{ videoformset.management_form }}
+    {% for form in videoformset %}
+    {{form.as_p}}
+    {% endfor %}
 
     <input type="submit" class="btn" name="" id="">
 </form>

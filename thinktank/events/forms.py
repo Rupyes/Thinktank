@@ -1,5 +1,5 @@
 from django import forms
-from .models import Event, EventPhoto
+from .models import Event, EventPhoto, EventVideo
 
 
 class EventForm(forms.ModelForm):
@@ -19,3 +19,11 @@ class ImageForm(forms.ModelForm):
     class Meta:
         model = EventPhoto
         fields = ('photo', )
+
+
+class VideoForm(forms.ModelForm):
+    video = forms.FileField(label='Video')
+
+    class Meta:
+        model = EventVideo
+        fields = ('video',)
