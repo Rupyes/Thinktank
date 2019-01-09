@@ -6,6 +6,7 @@ from PIL import Image
 from io import BytesIO
 from django.core.files.uploadedfile import SimpleUploadedFile
 from accounts.models import Faculty
+from django.dispatch import receiver
 
 # Create your models here.
 
@@ -45,7 +46,8 @@ class Event(models.Model):
 class EventPhoto(models.Model):
     event = models.ForeignKey(
         Event, on_delete=models.CASCADE, related_name='event_pics')
-    photo = models.ImageField(upload_to=user_directory_path_img, blank=True)
+    photo = models.ImageField(
+        upload_to=user_directory_path_img, blank=True, null=True)
     thumbnail = models.ImageField(upload_to=store_thumnail,
                                   blank=True, null=True)
 
@@ -99,3 +101,47 @@ class EventPhoto(models.Model):
         # create a thumbnail
         self.create_thumbnail()
         super(EventPhoto, self).save()
+
+
+@receiver(models.signals.post_delete, sender=EventPhoto)
+def auto_delete_file_on_delete(sender, instance, **kwargs):
+    if instance.photo:
+        if os.path.isfile(instance.photo.path):
+            os.remove(instance.photo.path)
+    if instance.thumbnail:
+        if os.path.isfile(instance.thumbnail.path):
+            os.remove(instance.thumbnail.path)
+
+
+@receiver(models.signals.pre_save, sender=EventPhoto)
+def auto_delete_file_on_change(sender, instance, **kwargs):
+    """
+    Deletes old file from filesystem
+    when corresponding `Event` object is updated
+    with new file.
+    """
+    if not instance.pk:
+        return False
+
+    try:
+        old_image = Event.objects.get(pk=instance.pk).photo
+    except Event.DoesNotExist:
+        return False
+
+    new_image = instance.photo
+    if not old_image == new_image:
+        if os.path.isfile(old_image.path):
+            os.remove(old_image.path)
+
+    if not instance.pk:
+        return False
+
+    try:
+        old_image_thumb = Event.objects.get(pk=instance.pk).thumbnail
+    except Event.DoesNotExist:
+        return False
+
+    new_image_thumb = instance.thumbnail
+    if not old_image_thumb == new_image_thumb:
+        if os.path.isfile(old_image_thumb.path):
+            os.remove(old_image_thumb.path)

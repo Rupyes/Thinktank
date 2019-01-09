@@ -1,18 +1,12 @@
 {% extends 'thinktank/base.html' %}
 
-{% block title %}Create Event{% endblock%}
+{% block title %}Update Event{% endblock%}
 
 {% block content %}
 <h2>Event</h2>
 <form action="" method="POST" enctype="multipart/form-data">
     {% csrf_token %}
     {{eventForm.as_p}}
-    <h4>Images:</h4>
-    <hr>
-    {{ formset.management_form }}
-    {% for form in formset %}
-    {{form.as_p}}
-    {% endfor %}
 
     <input type="submit" class="btn" name="" id="">
 </form>
