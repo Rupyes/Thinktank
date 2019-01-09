@@ -3,13 +3,14 @@
 {% block title %}Events{% endblock%}
 
 {% block content %}
-
+<h1>Events:</h1>
+<hr>
 {% for event in event_list %}
 <h3><a href="{% url 'events:event_detail' pk=event.pk%}">{{event.title}}</a></h3>
 {% empty %}
 <p>No Events.</p>
 {% endfor %}
-{% if user.is_authenticated %}
+{% if user.is_authenticated and request.user.is_faculty %}
 <a href="{% url 'events:post_event' %}" class="btn btn-primary">Post Event</a>
 {% endif%}
 {% endblock %}
