@@ -26,6 +26,7 @@ urlpatterns = [
     url(r'^blog/', include('blogs.urls', namespace="blogs")),
     url(r'^forum/', include('forums.urls', namespace="forums")),
     url(r'^event/', include('events.urls', namespace="events")),
+    url(r'^material/', include('materials.urls', namespace="materials")),
     url(r'^thanks/',
         TemplateView.as_view(template_name="thinktank/thanks.html"),
         name="thanks"),
