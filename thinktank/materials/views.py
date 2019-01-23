@@ -20,3 +20,7 @@ def material_view(request):
         'departments': departments,
     }
     return render(request, 'materials/material_department.html', context=context)
+
+
+def department_wise_material(request):
+    return render(request, 'materials/department_page.html')
