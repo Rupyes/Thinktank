@@ -19,7 +19,7 @@
 </ul>
 <hr>
 <a class="btn btn-dark" href="{% url 'blogs:create_blog' %}" style="color:white">
-    Create
+    Post a Blog
 </a>
 {%endif%}
 <hr>
@@ -39,7 +39,7 @@
 </ul>
 <hr>
 <a class="btn btn-dark" href="{% url 'forums:create_forum' %}" style="color:white">
-    Create
+    Ask on Forum
 </a>
 <hr>
 
@@ -57,6 +57,25 @@
 </ul>
 <hr>
 <a class="btn btn-dark" href="{% url 'events:post_event' %}" style="color:white">
-    Create
+    Add Event
+</a>
+<hr>
+
+
+<h1>Materials</h1>
+<hr>
+<ul>
+    {% for material in my_material_list %}
+    <li>
+        <a href="{% url 'materials:material_detail' pk=material.pk%}">
+            {{ material.title}}
+        </a>
+    </li>
+    {% empty %}
+    <p>No Materials.</p>
+    {% endfor %}
+</ul>
+<a class="btn btn-dark" href="{% url 'materials:add_material' %}" style="color:white">
+    Add Notes
 </a>
 {% endblock %}

@@ -15,6 +15,7 @@ from .models import Student, Faculty
 from blogs.models import Blog
 from forums.models import Forum
 from events.models import Event
+from materials.models import Material
 from .forms import (
     StudentSignUpForm,
     UserLoginForm,
@@ -166,4 +167,6 @@ class DashboardView(LoginRequiredMixin, TemplateView):
             questioner__username__iexact=self.request.user)
         context['my_event_list'] = Event.objects.filter(
             user__user__username__iexact=self.request.user.faculty)
+        context['my_material_list'] = Material.objects.filter(
+            faculty__user__username__iexact=self.request.user.faculty)
         return context
