@@ -18,6 +18,9 @@ from django.contrib import admin
 from django.conf import settings
 from django.conf.urls.static import static
 from django.views.generic import TemplateView
+from django.contrib.auth.views import (
+    password_reset, password_reset_done, password_reset_confirm, password_reset_complete,)
+
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
@@ -30,6 +33,15 @@ urlpatterns = [
     url(r'^thanks/',
         TemplateView.as_view(template_name="thinktank/thanks.html"),
         name="thanks"),
+    url(r'^reset_password/$', password_reset, name="reset_password"),
+    url(r'^reset-password/done/$', password_reset_done, name="password_reset_done"),
+    url(r'^reset-password/confirm/$',
+        password_reset_confirm, name="password_reset_confirm"),
+    url(r'^reset-password/confirm/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>.+)/$',
+        password_reset_confirm, name="password_reset_confirm"),
+    url(r'^reset-password/complete/$', password_reset_complete,
+        name="password_reset_complete"),
+
 ]
 
 if settings.DEBUG == True:
