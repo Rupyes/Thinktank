@@ -9,6 +9,11 @@ from .forms import (CreateMaterialForm, ImageForm,
 from django.views.generic import DetailView, DeleteView, ListView
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.conf import settings
+from django.http import HttpResponse, Http404
+import os
+import mimetypes
+
 
 # Create your views here.
 # departments = ["Computer Science and Enginnering", "Mechanical Enginnering", "Civil Enginnering", "Electronics \
@@ -37,6 +42,24 @@ def add_material(request):
         form = CreateMaterialForm()
 
     return render(request, template_name="materials/add_material_page.html", context={'form': form})
+
+
+def download_material(request, file_name):
+    file_ext = file_name.split(".")[-1]
+    file_path = os.path.join(
+        settings.MEDIA_ROOT, "material", "documents", file_name)
+    file_mimetype = mimetypes.guess_type(file_path)
+    print("file_path", file_path, os.path.exists(
+        file_path), file_ext, file_mimetype)
+    if os.path.exists(file_path):
+        with open(file_path, 'rb') as fh:
+            response = HttpResponse(
+                fh.read(), content_type=file_mimetype[0])
+            response['Content-Disposition'] = 'inline; filename=' + \
+                os.path.basename(file_path)
+            return response
+    else:
+        raise Http404
 
 
 def add_gatematerial(request):

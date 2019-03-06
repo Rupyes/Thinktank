@@ -19,14 +19,14 @@
     </h3>
     <hr>
     {% for material_doc in material.documents.all %}
-    <div style="border:1px dashed #000; margin-left: 5px;  float: left;">
+    <div style="border:1px dashed #000; margin-left: 5px;  float: left; padding: 5px;">
         {% if request.user == material.faculty.user %}
         <p style="margin: 0 10 0 0; text-align: right;">
             <a onclick="return confirm('Are you sure you want to delete this?')"
                 href="{% url 'materials:delete_document' pk=material.pk pk1=material_doc.pk%}">X</a>
         </p>
         {%endif%}
-        {{material_doc.get_filename}}
+        <a href="/material/download/{{material_doc.get_filename}}">{{material_doc.get_filename}}</a>
 
     </div>
     {% empty %}
