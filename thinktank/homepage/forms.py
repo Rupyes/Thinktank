@@ -11,6 +11,8 @@ class LoginForm(forms.ModelForm):
 
 
 class ContactUsForm(forms.Form):
+    from_email = forms.EmailField(label='Email', max_length=50, widget=forms.EmailInput(
+        attrs={'class': 'form-control'}))
     subject = forms.CharField(label='Subject', max_length=100, help_text='100 characters max.', widget=forms.TextInput(
         attrs={'class': 'form-control'}))
     detail = forms.CharField(label='Detail', widget=forms.Textarea(

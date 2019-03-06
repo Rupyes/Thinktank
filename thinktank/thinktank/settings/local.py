@@ -138,3 +138,9 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 LOGOUT_REDIRECT_URL = '/thanks/'
 LOGIN_URL = '/'
+
+
+EMAIL_HOST = 'localhost'
+EMAIL_PORT = 1025
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'

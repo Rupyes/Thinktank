@@ -4,61 +4,76 @@
 <h2>{{material.title}}</h2>
 <p>-by {{material.faculty.user.get_full_name}}</p>
 <p>{{material.description}}</p>
+{% if request.user.is_authenticated and request.user.is_faculty %}
 <p><a href="{% url 'materials:material_delete' pk=material.pk %}">Delete</a></p>
+{% endif %}
 <hr>
 
 <div class="blocks">
     <h3>Documents
+        {% if request.user.is_authenticated and request.user == material.faculty.user %}
         <a href="{% url 'materials:add_document' pk=material.pk%}">
             <img style="width:25;float: right;" src="/media/icons/add_video_icon.png" alt="add files">
         </a>
+        {%endif%}
     </h3>
     <hr>
     {% for material_doc in material.documents.all %}
     <div style="border:1px dashed #000; margin-left: 5px;  float: left;">
         {% if request.user == material.faculty.user %}
         <p style="margin: 0 10 0 0; text-align: right;">
-            <a onclick="return confirm('Are you sure you want to delete this?')" href="{% url 'materials:delete_document' pk=material.pk pk1=material_doc.pk%}">X</a>
+            <a onclick="return confirm('Are you sure you want to delete this?')"
+                href="{% url 'materials:delete_document' pk=material.pk pk1=material_doc.pk%}">X</a>
         </p>
         {%endif%}
         {{material_doc.get_filename}}
 
     </div>
+    {% empty %}
+    No documents
     {% endfor %}
 
 </div>
 <div class="blocks">
     <h3>Links
+        {% if request.user.is_authenticated and request.user == material.faculty.user %}
         <a href="{% url 'materials:add_link' pk=material.pk%}">
             <img style="width:25;float: right;" src="/media/icons/add_video_icon.png" alt="add links">
         </a>
+        {%endif%}
     </h3>
     <hr>
     {% for material_link in material.links.all %}
     <div style="border:1px dashed #000; margin-left: 5px;  float: left;">
         {% if request.user == material.faculty.user %}
         <p style="margin: 0 10 0 0; text-align: right;">
-            <a onclick="return confirm('Are you sure you want to delete this?')" href="{% url 'materials:delete_link' pk=material.pk pk1=material_link.pk%}">X</a>
+            <a onclick="return confirm('Are you sure you want to delete this?')"
+                href="{% url 'materials:delete_link' pk=material.pk pk1=material_link.pk%}">X</a>
         </p>
         {%endif%}
         {{ material_link.link }}
 
     </div>
+    {% empty %}
+    No links
     {% endfor %}
 
 </div>
 <div class="blocks">
     <h3>Videos
+        {% if request.user.is_authenticated and request.user == material.faculty.user %}
         <a href="{% url 'materials:add_video' pk=material.pk%}">
             <img style="width:25;float: right;" src="/media/icons/add_video_icon.png" alt="add video">
         </a>
+        {%endif%}
     </h3>
     <hr>
     {% for material_video in material.videos.all %}
     <div style="border:1px dashed #000; margin-left: 5px;  float: left;">
         {% if request.user == material.faculty.user %}
         <p style="margin: 0 10 0 0; text-align: right;">
-            <a onclick="return confirm('Are you sure you want to delete this?')" href="{% url 'materials:delete_video' pk=material.pk pk1=material_video.pk%}">X</a>
+            <a onclick="return confirm('Are you sure you want to delete this?')"
+                href="{% url 'materials:delete_video' pk=material.pk pk1=material_video.pk%}">X</a>
         </p>
         {%endif%}
         <video width="200" controls muted>
@@ -67,26 +82,33 @@
         </video>
 
     </div>
+    {% empty %}
+    No videos
     {% endfor %}
 
 </div>
 <div class="blocks">
     <h3>Images
+        {% if request.user.is_authenticated and request.user == material.faculty.user %}
         <a href="{% url 'materials:add_image' pk=material.pk%}">
             <img style="width:25;float: right;" src="/media/icons/add_img.png" alt="add image">
         </a>
+        {%endif%}
     </h3>
     <hr>
     {% for material_image in material.images.all %}
     <div style="border:1px dashed #000; margin-left: 5px;  float: left;">
         {% if request.user == material.faculty.user %}
         <p style="margin: 0 10 0 0; text-align: right;">
-            <a onclick="return confirm('Are you sure you want to delete this?')" href="{% url 'materials:delete_image' pk=material.pk pk1=material_image.pk%}">X</a>
+            <a onclick="return confirm('Are you sure you want to delete this?')"
+                href="{% url 'materials:delete_image' pk=material.pk pk1=material_image.pk%}">X</a>
         </p>
         {%endif%}
         <img src="{{material_image.thumbnail.url}}" class="img-thumbnail" alt="">
 
     </div>
+    {% empty %}
+    No images
     {% endfor %}
 
 </div>

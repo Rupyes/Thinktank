@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from accounts.forms import UserLoginForm
 from .forms import ContactUsForm
 from django.contrib.auth import login
+from django.core.mail import send_mail
 
 
 def index(request, *args, **kwargs):
@@ -26,7 +27,17 @@ def contact(request):
     if request.method == 'POST':
         form = ContactUsForm(request.POST)
         if form.is_valid():
-            pass
+            subject = form.cleaned_data['subject']
+            message = form.cleaned_data['detail']
+            from_email = form.cleaned_data['from_email']
+            send_mail(
+                subject,
+                message,
+                from_email,
+                ['to@example.com'],
+                fail_silently=False,
+            )
+            return HttpResponseRedirect('/thanks/')
     else:
         form = ContactUsForm()
 

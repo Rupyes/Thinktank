@@ -1,0 +1,15 @@
+{% extends 'thinktank/base.html' %}
+
+{% block content %}
+<h1>Notes</h1>
+<hr>
+{% for note in notes %}
+<p><a href="{% url 'materials:material_detail' pk=note.pk%}">{{note.title}}</a> - by {{ note.faculty.get_full_name}}
+    [{{note.faculty.department}}]</p>
+{%endfor%}
+<h1>Gate Materials</h1>
+<hr>
+{% for gate in gates %}
+<p><a href="{% url 'materials:material_detail' pk=gate.pk%}">{{gate.title}}</a> by {{ gate.faculty.get_full_name}}</p>
+{%endfor%}
+{%endblock%}

@@ -15,19 +15,11 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 #               and Communication Enginnering", "Electrical and Electronic Enginnering"]
 
 
-# def material_view(request):
-#     documents = Document.objects.all()
-#     links = Link.objects.all()
-#     videos = Video.objects.all()
-#     images = Image.objects.all()
-#     context = {
-#         'documents': documents,
-#         'links': links,
-#         'videos': videos,
-#         'images': images,
-#         'departments': departments,
-#     }
-#     return render(request, 'materials/material_department.html', context=context)
+def material_view(request):
+    notes = Material.objects.filter(is_of_gate=False)
+    gates = Material.objects.filter(is_of_gate=True)
+    context = {'notes': notes, 'gates': gates}
+    return render(request, 'materials/material.html', context=context)
 
 
 # def department_wise_material(request):
