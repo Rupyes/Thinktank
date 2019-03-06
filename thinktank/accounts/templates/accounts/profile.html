@@ -3,10 +3,8 @@
 {% block title %}Profile{% endblock%}
 
 {% block content %}
-
 <div style="border: 1px dashed #000; width:100%; padding: 10px;">
     {% if user.is_authenticated %}
-
 
     {% if request.user.is_student %}
     <h1>Welcome {{request.user.get_full_name}}!</h1>
@@ -21,10 +19,20 @@
 
 
     {% if request.user.is_faculty %}
-    <h1>Welcome {{request.user.get_full_name}}!</h1>
+    <h1>Welcome {{request.user.faculty.get_full_name}}!</h1>
     <hr>
+    {% if request.user.faculty.profile_picture %}
+    <img src="{{ request.user.faculty.profile_picture.url }}" alt="profile picture" width="100" height="100"
+        class="rounded-circle" />
+    {%endif%}
+    {% if not request.user.faculty.profile_picture %}
+    <img src="/media/icons/person_icon.png" style="background:#ddd;" alt="profile picture" width="100"
+        class="rounded-circle" />
+    {%endif%}
     <h4>Email: {{request.user.email}}</h4>
+    <h4>Gender: {{request.user.faculty.gender}}</h4>
     <h4>College: {{request.user.faculty.college}}</h4>
+    <h4>University: {{request.user.faculty.university}}</h4>
     <h4>Department: {{request.user.faculty.department}}</h4>
     <hr>
     <p><a href="{% url 'accounts:change_password'%}">Change Password</a></p>

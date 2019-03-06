@@ -10,7 +10,7 @@ from django.views.generic import (
     ListView,
     DetailView,
 )
-
+from django.db.models import Q
 from .models import Student, Faculty
 from blogs.models import Blog
 from forums.models import Forum
@@ -117,12 +117,15 @@ class StudentUpdate(LoginRequiredMixin, UpdateView):
     model = Student
     template_name = 'accounts/update_profile.html'
     fields = [
+        'profile_picture',
         'first_name',
         'middle_name',
         'last_name',
+        'gender',
         'date_of_birth',
         'college',
         'department',
+        'university',
     ]
 
     def get_object(self):
@@ -134,17 +137,23 @@ class FacultyUpdateView(LoginRequiredMixin, UpdateView):
     model = Faculty
     template_name = 'accounts/update_profile.html'
     fields = [
+        'profile_picture',
         'first_name',
         'middle_name',
         'last_name',
+        'gender',
         'date_of_birth',
         'college',
         'department',
+        'university',
     ]
 
     def get_object(self):
         return get_object_or_404(
             Faculty, user__username__iexact=self.kwargs.get("username"))
+
+    def post(self, request, *args, **kwargs):
+        return super(FacultyUpdateView, self).post(request, *args, **kwargs)
 
 
 class FacultyListView(ListView):
@@ -168,5 +177,11 @@ class DashboardView(LoginRequiredMixin, TemplateView):
         context['my_event_list'] = Event.objects.filter(
             user__user__username__iexact=self.request.user.faculty)
         context['my_material_list'] = Material.objects.filter(
-            faculty__user__username__iexact=self.request.user.faculty)
+            Q(is_of_gate=False),
+            Q(faculty__user__username__iexact=self.request.user.faculty)
+        )
+        context['my_gatematerial_list'] = Material.objects.filter(
+            Q(is_of_gate=True),
+            Q(faculty__user__username__iexact=self.request.user.faculty)
+        )
         return context

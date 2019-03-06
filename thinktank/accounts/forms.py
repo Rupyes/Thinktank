@@ -1,5 +1,5 @@
 from django import forms
-from .models import MyUser, Student, Faculty, DEPARTMENTS
+from .models import MyUser, Student, Faculty, DEPARTMENTS, SEX
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from django.contrib.auth import get_user_model
 from django.db.models import Q
@@ -9,9 +9,12 @@ User = get_user_model()
 
 
 class StudentSignUpForm(UserCreationForm):
+    # profile_picture = forms.ImageField(required=False)
     first_name = forms.CharField(label="First Name*")
     middle_name = forms.CharField(label="Middle Name", required=False)
     last_name = forms.CharField(label="Last Name*")
+    gender = forms.ChoiceField(label="gender", choices=SEX,
+                               widget=forms.Select(), required=True)
     date_of_birth = forms.DateField(
         label="Date of Birth",
         widget=forms.DateInput(
@@ -23,20 +26,24 @@ class StudentSignUpForm(UserCreationForm):
         choices=DEPARTMENTS,
         initial='',
         widget=forms.Select(),
-        required=True)
+        required=True),
+    university = forms.CharField(label="University", max_length=255)
 
     class Meta:
         model = User
         fields = (
+            # 'profile_picture',
             'first_name',
             'middle_name',
             'last_name',
+            'gender',
             'email',
             'password1',
             'password2',
             'date_of_birth',
             'college',
-            'department',
+            # 'department',
+            'university',
         )
         exclude = ('username', )
 
@@ -49,27 +56,37 @@ class StudentSignUpForm(UserCreationForm):
         user_stud.email = email
         user_stud.username = username
         user_stud.save()
+        profile_picture = self.cleaned_data.get('profile_picture')
         first_name = self.cleaned_data.get('first_name')
         middle_name = self.cleaned_data.get('middle_name')
         last_name = self.cleaned_data.get('last_name')
+        gender = self.cleaned_data.get('gender')
         date_of_birth = self.cleaned_data.get('date_of_birth')
         college = self.cleaned_data.get('college')
         department = self.cleaned_data.get('department')
+        university = self.cleaned_data.get('university')
         student = Student.objects.create(
             user=user_stud,
+            profile_picture=profile_picture,
             first_name=first_name,
             middle_name=middle_name,
             last_name=last_name,
+            gender=gender,
             date_of_birth=date_of_birth,
             college=college,
-            department=department)
+            department=department,
+            university=university,
+        )
         return user_stud
 
 
 class FacultySignUpForm(UserCreationForm):
+    # profile_picture = forms.ImageField(required=False)
     first_name = forms.CharField(label="First Name*")
     middle_name = forms.CharField(label="Middle Name", required=False)
     last_name = forms.CharField(label="Last Name*")
+    gender = forms.ChoiceField(label="gender", choices=SEX,
+                               widget=forms.Select(), required=True)
     date_of_birth = forms.DateField(
         label="Date of Birth",
         widget=forms.DateInput(
@@ -82,19 +99,23 @@ class FacultySignUpForm(UserCreationForm):
         initial='',
         widget=forms.Select(),
         required=True)
+    university = forms.CharField(label="University", max_length=255)
 
     class Meta:
         model = User
         fields = (
+            # 'profile_picture',
             'first_name',
             'middle_name',
             'last_name',
+            'gender',
             'email',
             'password1',
             'password2',
             'date_of_birth',
             'college',
-            'department',
+            # 'department',
+            'university',
         )
         exclude = ('username', )
 
@@ -107,20 +128,26 @@ class FacultySignUpForm(UserCreationForm):
         user_fac.email = email
         user_fac.username = username
         user_fac.save()
+        profile_picture = self.cleaned_data.get('profile_picture')
         first_name = self.cleaned_data.get('first_name')
         middle_name = self.cleaned_data.get('middle_name')
         last_name = self.cleaned_data.get('last_name')
+        gender = self.cleaned_data.get('gender')
         date_of_birth = self.cleaned_data.get('date_of_birth')
         college = self.cleaned_data.get('college')
         department = self.cleaned_data.get('department')
+        university = self.cleaned_data.get('university')
         faculty = Faculty.objects.create(
             user=user_fac,
+            profile_picture=profile_picture,
             first_name=first_name,
             middle_name=middle_name,
             last_name=last_name,
+            gender=gender,
             date_of_birth=date_of_birth,
             college=college,
             department=department,
+            university=university,
         )
         return user_fac
 

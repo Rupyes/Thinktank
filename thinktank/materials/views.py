@@ -47,6 +47,21 @@ def add_material(request):
     return render(request, template_name="materials/add_material_page.html", context={'form': form})
 
 
+def add_gatematerial(request):
+    if request.method == "POST":
+        form = CreateMaterialForm(request.POST)
+        if form.is_valid():
+            form = form.save(commit=False)
+            form.is_of_gate = True
+            form.faculty = request.user.faculty
+            form.save()
+            return redirect("materials:material_detail", pk=form.pk)
+    else:
+        form = CreateMaterialForm()
+
+    return render(request, template_name="materials/add_material_page.html", context={'form': form})
+
+
 class MaterialDetailView(DetailView):
     model = Material
 

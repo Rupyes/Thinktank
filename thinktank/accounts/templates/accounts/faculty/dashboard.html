@@ -78,4 +78,24 @@
 <a class="btn btn-dark" href="{% url 'materials:add_material' %}" style="color:white">
     Add Notes
 </a>
+
+<hr>
+
+<h1>Gate Materials</h1>
+<hr>
+<ul>
+    {% for gmaterial in my_gatematerial_list %}
+    <li>
+        <a href="{% url 'materials:material_detail' pk=gmaterial.pk%}">
+            {{ gmaterial.title}}
+        </a>
+    </li>
+    {% empty %}
+    <p>No Materials.</p>
+    {% endfor %}
+</ul>
+<a class="btn btn-dark" href="{% url 'materials:add_gatematerial' %}" style="color:white">
+    Add Gate Notes
+</a>
+
 {% endblock %}

@@ -2,14 +2,14 @@ from django.conf.urls import url
 from django.views.generic import ListView
 from .views import (add_material, MaterialDetailView, MaterialDeleteView,
                     add_image, delete_image, add_video, delete_video,
-                    add_document, delete_document, delete_link, add_link,)
+                    add_document, delete_document, delete_link, add_link, add_gatematerial)
 
 app_name = 'materials'
 
 urlpatterns = [
-    # url(r'^$', material_view, name="materials"),
-    # url(r'^department/$', department_wise_material, name="materials"),
+
     url(r'^create/$', add_material, name="add_material"),
+    url(r'^gate/create/$', add_gatematerial, name="add_gatematerial"),
     url(r'^(?P<pk>\d+)/$',
         MaterialDetailView.as_view(), name="material_detail"),
     url(r'^(?P<pk>\d+)/delete$',

@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'forums',
     'events',
     'materials',
+    'django_cleanup',
 ]
 
 MIDDLEWARE = [
