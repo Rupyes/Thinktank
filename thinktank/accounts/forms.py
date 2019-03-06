@@ -9,7 +9,6 @@ User = get_user_model()
 
 
 class StudentSignUpForm(UserCreationForm):
-    # profile_picture = forms.ImageField(required=False)
     first_name = forms.CharField(label="First Name*")
     middle_name = forms.CharField(label="Middle Name", required=False)
     last_name = forms.CharField(label="Last Name*")
@@ -26,13 +25,12 @@ class StudentSignUpForm(UserCreationForm):
         choices=DEPARTMENTS,
         initial='',
         widget=forms.Select(),
-        required=True),
+        required=True)
     university = forms.CharField(label="University", max_length=255)
 
     class Meta:
         model = User
         fields = (
-            # 'profile_picture',
             'first_name',
             'middle_name',
             'last_name',
@@ -42,7 +40,6 @@ class StudentSignUpForm(UserCreationForm):
             'password2',
             'date_of_birth',
             'college',
-            # 'department',
             'university',
         )
         exclude = ('username', )
@@ -81,7 +78,6 @@ class StudentSignUpForm(UserCreationForm):
 
 
 class FacultySignUpForm(UserCreationForm):
-    # profile_picture = forms.ImageField(required=False)
     first_name = forms.CharField(label="First Name*")
     middle_name = forms.CharField(label="Middle Name", required=False)
     last_name = forms.CharField(label="Last Name*")
@@ -104,7 +100,6 @@ class FacultySignUpForm(UserCreationForm):
     class Meta:
         model = User
         fields = (
-            # 'profile_picture',
             'first_name',
             'middle_name',
             'last_name',
@@ -114,7 +109,6 @@ class FacultySignUpForm(UserCreationForm):
             'password2',
             'date_of_birth',
             'college',
-            # 'department',
             'university',
         )
         exclude = ('username', )

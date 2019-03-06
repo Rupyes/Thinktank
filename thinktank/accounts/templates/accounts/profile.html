@@ -3,40 +3,61 @@
 {% block title %}Profile{% endblock%}
 
 {% block content %}
-<div style="border: 1px dashed #000; width:100%; padding: 10px;">
+<div style="border: 1px dashed #000; width:100%; padding: 10px; float: left;">
     {% if user.is_authenticated %}
-
     {% if request.user.is_student %}
-    <h1>Welcome {{request.user.get_full_name}}!</h1>
-    <hr>
-    <h4>Email: {{request.user.email}}</h4>
-    <h4>College: {{request.user.student.college}}</h4>
-    <h4>Department: {{request.user.student.department}}</h4>
-    <hr>
-    <p><a href="{% url 'accounts:change_password'%}">Change Password</a></p>
-    <p><a href="{% url 'accounts:stud_update_profile' username=request.user.username%}">Update Profile</a></p>
+    <div class="profile_pic" style="float:left; width:200;">
+        {% if request.user.student.profile_picture %}
+
+        <img src="{{ request.user.student.profile_picture.url }}" alt="picture" width="200"
+            class="rounded float-left" />
+        {%endif%}
+        {% if not request.user.student.profile_picture %}
+        <img src="/media/icons/person_icon.png" style="background:#ddd;" alt="picture" width="200"
+            class="rounded float-left" />
+        {%endif%}
+    </div>
+    <div class="user_desc" style="float:left; margin-left: 20px;">
+        <h4>{{request.user.student.get_full_name}}</h4>
+        <p>{{request.user.email}} <br> <b>{{request.user.student.department}}</b>
+            <span class="badge badge-secondary">Student</span>
+            <br>{{request.user.student.get_gender_display}}, {{request.user.student.college}}
+        </p>
+        <h4>{{request.user.student.university}}</h4>
+    </div>
+    <div style="float:left; width:100%">
+        <hr>
+        <p><a href="{% url 'accounts:change_password'%}">Change Password</a></p>
+        <p><a href="{% url 'accounts:stud_update_profile' username=request.user.username%}">Update Profile</a></p>
+    </div>
     {% endif %}
 
 
     {% if request.user.is_faculty %}
-    <h1>Welcome {{request.user.faculty.get_full_name}}!</h1>
-    <hr>
-    {% if request.user.faculty.profile_picture %}
-    <img src="{{ request.user.faculty.profile_picture.url }}" alt="profile picture" width="100" height="100"
-        class="rounded-circle" />
-    {%endif%}
-    {% if not request.user.faculty.profile_picture %}
-    <img src="/media/icons/person_icon.png" style="background:#ddd;" alt="profile picture" width="100"
-        class="rounded-circle" />
-    {%endif%}
-    <h4>Email: {{request.user.email}}</h4>
-    <h4>Gender: {{request.user.faculty.gender}}</h4>
-    <h4>College: {{request.user.faculty.college}}</h4>
-    <h4>University: {{request.user.faculty.university}}</h4>
-    <h4>Department: {{request.user.faculty.department}}</h4>
-    <hr>
-    <p><a href="{% url 'accounts:change_password'%}">Change Password</a></p>
-    <p><a href="{% url 'accounts:faculty_update_profile' username=request.user.username%}">Update Profile</a></p>
+    <div class="profile_pic" style="float:left; width:200;">
+        {% if request.user.faculty.profile_picture %}
+
+        <img src="{{ request.user.faculty.profile_picture.url }}" alt="picture" width="200"
+            class="rounded float-left" />
+        {%endif%}
+        {% if not request.user.faculty.profile_picture %}
+        <img src="/media/icons/person_icon.png" style="background:#ddd;" alt="picture" width="200"
+            class="rounded float-left" />
+        {%endif%}
+    </div>
+    <div class="user_desc" style="float:left; margin-left: 20px;">
+        <h4>{{request.user.faculty.get_full_name}}</h4>
+        <p>{{request.user.email}} <br> <b>{{request.user.faculty.department}}</b>
+            <span class="badge badge-secondary">Faculty</span>
+            <br>{{request.user.faculty.get_gender_display}}, {{request.user.faculty.college}}
+        </p>
+        <h4>{{request.user.faculty.university}}</h4>
+    </div>
+    <div style="float:left; width:100%">
+        <hr>
+        <p><a href="{% url 'accounts:change_password'%}">Change Password</a></p>
+        <p><a href="{% url 'accounts:faculty_update_profile' username=request.user.username%}">Update Profile</a></p>
+    </div>
     {% endif %}
 
 
