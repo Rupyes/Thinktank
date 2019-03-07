@@ -3,69 +3,70 @@
 {% block title %}Profile{% endblock%}
 
 {% block content %}
-<div style="border: 1px dashed #000; width:100%; padding: 10px; float: left;">
-    {% if user.is_authenticated %}
-    {% if request.user.is_student %}
-    <div class="profile_pic" style="float:left; width:200;">
-        {% if request.user.student.profile_picture %}
+<h4>Profile</h4>
+<hr>
+{% if user1.is_faculty %}
+<div class="profile_pic" style="float:left; width:200;">
 
-        <img src="{{ request.user.student.profile_picture.url }}" alt="picture" width="200"
-            class="rounded float-left" />
-        {%endif%}
-        {% if not request.user.student.profile_picture %}
-        <img src="/media/icons/person_icon.png" style="background:#ddd;" alt="picture" width="200"
-            class="rounded float-left" />
-        {%endif%}
-    </div>
-    <div class="user_desc" style="float:left; margin-left: 20px;">
-        <h4>{{request.user.student.get_full_name}}</h4>
-        <p>{{request.user.email}} <br> <b>{{request.user.student.department}}</b>
-            <span class="badge badge-secondary">Student</span>
-            <br>{{request.user.student.get_gender_display}}, {{request.user.student.college}}
-        </p>
-        <h4>{{request.user.student.university}}</h4>
-    </div>
-    <div style="float:left; width:100%">
-        <hr>
-        <p><a href="{% url 'accounts:change_password'%}">Change Password</a></p>
-        <p><a href="{% url 'accounts:stud_update_profile' username=request.user.username%}">Update Profile</a></p>
-    </div>
-    {% endif %}
-
-
-    {% if request.user.is_faculty %}
-    <div class="profile_pic" style="float:left; width:200;">
-        {% if request.user.faculty.profile_picture %}
-
-        <img src="{{ request.user.faculty.profile_picture.url }}" alt="picture" width="200"
-            class="rounded float-left" />
-        {%endif%}
-        {% if not request.user.faculty.profile_picture %}
-        <img src="/media/icons/person_icon.png" style="background:#ddd;" alt="picture" width="200"
-            class="rounded float-left" />
-        {%endif%}
-    </div>
-    <div class="user_desc" style="float:left; margin-left: 20px;">
-        <h4>{{request.user.faculty.get_full_name}}</h4>
-        <p>{{request.user.email}} <br> <b>{{request.user.faculty.department}}</b>
-            <span class="badge badge-secondary">Faculty</span>
-            <br>{{request.user.faculty.get_gender_display}}, {{request.user.faculty.college}}
-        </p>
-        <h4>{{request.user.faculty.university}}</h4>
-    </div>
-    <div style="float:left; width:100%">
-        <hr>
-        <p><a href="{% url 'accounts:change_password'%}">Change Password</a></p>
-        <p><a href="{% url 'accounts:faculty_update_profile' username=request.user.username%}">Update Profile</a></p>
-    </div>
-    {% endif %}
-
-
-    {% endif %}
-    {% if not user.is_authenticated %}
-    <a href="{% url 'homepage:index'%}">Back to home..</a>
-    {% endif %}
+    {% if user1.faculty.profile_picture %}
+    <img src="{{ user1.faculty.profile_picture.url }}" alt="picture" width="200" class="rounded float-left" />
+    {%endif%}
+    {% if not request.user.faculty.profile_picture %}
+    <img src="/media/icons/person_icon.png" style="background:#ddd;" alt="picture" width="200"
+        class="rounded float-left" />
+    {%endif%}
+</div>
+<div class="user_desc" style="float:left; margin-left: 20px;">
+    <h4>{{user1.faculty.get_full_name}}</h4>
+    <p>{{user1.email}} <br> <b>{{user1.faculty.get_department_display}}</b>
+        <span class="badge badge-primary">Faculty</span>
+        <br>{{user1.faculty.get_gender_display}}, {{user1.faculty.college}}
+    </p>
+    <h4>{{user1.faculty.university}}</h4>
 
 </div>
+{% if user.is_authenticated %}
+{% if request.user.username == user1.username %}
+<div style="float:left; width:100%">
+    <hr>
+    <p><a href="{% url 'accounts:change_password'%}">Change Password</a></p>
+    <p><a href="{% url 'accounts:faculty_update_profile' username=request.user.username%}">Update Profile</a></p>
+</div>
+{% endif %}
+{% endif %}
+
+{% endif %}
+
+
+{% if user1.is_student %}
+
+<div class="profile_pic" style="float:left; width:200;">
+    {% if user1.student.profile_picture %}
+
+    <img src="{{ user1.student.profile_picture.url }}" alt="picture" width="200" class="rounded float-left" />
+    {%endif%}
+    {% if not user1.student.profile_picture %}
+    <img src="/media/icons/person_icon.png" style="background:#ddd;" alt="picture" width="200"
+        class="rounded float-left" />
+    {%endif%}
+</div>
+<div class="user_desc" style="float:left; margin-left: 20px;">
+    <h4>{{user1.student.get_full_name}}</h4>
+    <p>{{user1.email}} <br> <b>{{user1.student.get_department_display}}</b>
+        <span class="badge badge-secondary">Student</span>
+        <br>{{user1.student.get_gender_display}}, {{user1.student.college}}
+    </p>
+    <h4>{{user1.student.university}}</h4>
+</div>
+{% if user.is_authenticated %}
+{% if request.user.username == user1.username %}
+<div style="float:left; width:100%">
+    <hr>
+    <p><a href="{% url 'accounts:change_password'%}">Change Password</a></p>
+    <p><a href="{% url 'accounts:stud_update_profile' username=request.user.username%}">Update Profile</a></p>
+</div>
+{% endif %}
+{% endif %}
+{% endif %}
 
 {% endblock %}

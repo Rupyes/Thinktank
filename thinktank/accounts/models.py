@@ -2,7 +2,7 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.urls import reverse_lazy
 from django.shortcuts import reverse
-from .validators import validate_image_size
+from .validators import validate_image_size, validate_image_width_and_height
 import uuid
 import os
 from django.dispatch import receiver
@@ -20,7 +20,7 @@ SEX = (('M', 'Male'), ('F', 'Female'), ('O', 'Other'))
 def user_directory_path(instance, filename):
     ext = filename.split('.')[-1]
     filename = "profilepic_{}.{}".format(str(uuid.uuid4()), ext)
-    return os.path.join(instance.user.username, 'profile', filename)
+    return os.path.join('images', 'profile', filename)
 
 
 # Create your models here.
@@ -45,7 +45,7 @@ class Student(models.Model):
     user = models.OneToOneField(
         MyUser, on_delete=models.CASCADE, primary_key=True)
     profile_picture = models.ImageField(
-        upload_to=user_directory_path, validators=[validate_image_size, ], blank=True)
+        upload_to=user_directory_path, validators=[validate_image_size, validate_image_width_and_height, ], blank=True)
     first_name = models.CharField(max_length=255)
     middle_name = models.CharField(max_length=255, blank=True)
     last_name = models.CharField(max_length=255)

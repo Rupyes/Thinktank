@@ -98,19 +98,10 @@ def change_password_view(request):
     return render(request, 'accounts/change_password.html', {'form': form})
 
 
-# @login_required
-# def profile(request, username):
-#     user = User.objects.get(username=username)
-#     return render(request, 'accounts/profile.html')
+def profile(request, username):
+    user1 = User.objects.get(username=username)
 
-
-class UserProfileView(DetailView):
-    model = User
-    template_name = 'accounts/profile.html'
-
-    def get_object(self, queryset=None):
-        return get_object_or_404(
-            User, username__iexact=self.kwargs.get("username"))
+    return render(request, 'accounts/profile.html', {'user1': user1})
 
 
 class StudentUpdate(LoginRequiredMixin, UpdateView):
@@ -162,6 +153,14 @@ class FacultyListView(ListView):
 
     def get_queryset(self):
         return Faculty.objects.all()
+
+
+class StudentListView(ListView):
+    model = Student
+    template_name = 'accounts/student/student_list.html'
+
+    def get_queryset(self):
+        return Student.objects.all()
 
 
 class DashboardView(LoginRequiredMixin, TemplateView):

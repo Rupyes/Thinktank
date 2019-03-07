@@ -6,19 +6,53 @@
             <a class="nav-item nav-link" href="{% url 'homepage:about' %}">About</a>
             <a class="nav-item nav-link" href="#">Guest</a>
             <a class="nav-item nav-link" href="{% url 'accounts:faculty_list'%}">Faculty</a>
-            <a class="nav-item nav-link" href="#">Students</a>
+            <a class="nav-item nav-link" href="{% url 'accounts:student_list'%}">Students</a>
             <a class="nav-item nav-link" href="#">Critics</a>
             <a class="nav-item nav-link" href="{% url 'events:event_list' %}">Events</a>
             <a class="nav-item nav-link" href="{% url 'homepage:contact' %}">Contact</a>
-            {% if user.is_authenticated and user.is_student %}
-            <a class="nav-item nav-link" href="{% url 'accounts:profile' username=request.user.username %}">Profile</a>
-            <a class="nav-item nav-link" href="{% url 'accounts:logout'%}">Logout</a>
+            {% if user.is_authenticated %}
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false">
+                    {% if request.user.is_faculty %}
+                    {% if  request.user.faculty.profile_picture %}
+                    <img src="{{ request.user.faculty.profile_picture.url }}" alt="picture" class="rounded-circle"
+                        width="50" />
+                    {%endif%}
+                    {% if not request.user.faculty.profile_picture %}
+                    <img src="/media/icons/person_icon.png" style="background:#ddd;" class="rounded-circle"
+                        alt="picture" width="50" />
+                    {%endif%}
+                    {% endif %}
+                    {% if request.user.is_student %}
+                    {% if  request.user.student.profile_picture %}
+                    <img src="{{ request.user.faculty.profile_picture.url }}" alt="picture" class="rounded-circle"
+                        width="50" />
+                    {%endif%}
+                    {% if not request.user.student.profile_picture %}
+                    <img src="/media/icons/person_icon.png" style="background:#ddd;" class="rounded-circle"
+                        alt="picture" width="50" />
+                    {%endif%}
+                    {% endif %}
+                    {{request.user.username}}
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    {% if request.user.is_faculty%}
+                    <a class="dropdown-item"
+                        href="{% url 'accounts:profile' username=request.user.username %}">Profile</a>
+                    <a class="dropdown-item"
+                        href="{% url 'accounts:dashboard' username=request.user.username %}">Dashboard</a>
+                    {%endif%}
+                    {% if request.user.is_student%}
+                    <a class="dropdown-item"
+                        href="{% url 'accounts:profile' username=request.user.username %}">Profile</a>
+                    {%endif%}
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="{% url 'accounts:logout'%}">Log Out</a>
+                </div>
+            </li>
             {% endif %}
-            {% if user.is_authenticated and user.is_faculty %}
-            <a class="nav-item nav-link" href="{% url 'accounts:profile' username=request.user.username %}">Profile</a>
-            <a class="nav-item nav-link" href="{% url 'accounts:dashboard' username=request.user.username %}">Dashboard</a>
-            <a class="nav-item nav-link" href="{% url 'accounts:logout'%}">Logout</a>
-            {% endif %}
+
         </nav>
     </div>
     <hr style="background: #000;">

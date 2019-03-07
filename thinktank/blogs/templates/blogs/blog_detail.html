@@ -1,16 +1,48 @@
 {% extends 'thinktank/base.html' %}
-
+{% load static %}
 {% block title %}Details{% endblock%}
+{% block link %}
+<link rel="stylesheet" href={% static "custom/css/style1.css" %} />
+{%endblock%}
 
 {% block content %}
-<h1>{{blog.title}}</h1>
-<p>by: {{blog.user.get_full_name}}</p>
-<p>published on: {{blog.created_date | date}}</p>
-<hr>
-<p>{{blog.text|linebreaks}}</p>
+<div style="float:left; width:100%; padding: 10px;">
+    <div style="float:left; width:100%">
+        <h1>{{blog.title}}</h1>
+        <div class="asker_detail" style="float:left; width: 300px; height: 75px;">
+            <div class="small_holder" style="float:left">
+                <div class="user_pic_on_list">
+                    {% if  blog.user.faculty.profile_picture %}
+                    <img src="{{ forum.questioner.faculty.profile_picture.url }}" alt="picture" class="rounded-circle"
+                        width="70" />
+                    {%endif%}
+                    {% if not blog.user.faculty.profile_picture %}
+                    <img src="/media/icons/person_icon.png" style="background:#ddd;" class="rounded-circle"
+                        alt="picture" width="70" />
+                    {%endif%}
+                </div>
+                <div class="user_name_on_list" style="margin-top: 15px; margin-left: 15px;">
+                    <p>
+                        <a href="{% url 'accounts:profile' username=blog.user%}">
+                            <text style="color: #000; font-size:14px;">
+                                {{blog.user.get_full_name}}
+                            </text>
+                        </a><br>
+                        {{blog.created_date|date }}
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div style="float:left; width:100%; padding-left: 20px; padding-right: 20px; padding-top: 20px;">
+        <p align="justify" style="font-size: 20px;">{{blog.text | linebreaksbr}}</p>
+    </div>
+</div>
 {% if request.user.username == blog.user.user.username %}
-<hr>
-<a class="btn btn-primary" href="{% url 'blogs:blog_update' pk=blog.pk%}">Update</a>
-<a class="btn btn-danger" href="{% url 'blogs:blog_delete' pk=blog.pk%}">Delete</a>
-{% endif %}
+<div style="float:left; width:100%">
+    <hr>
+    <a class="btn btn-primary" href="{% url 'blogs:blog_update' pk=blog.pk%}">Update</a>
+    <a class="btn btn-danger" href="{% url 'blogs:blog_delete' pk=blog.pk%}">Delete</a>
+    {% endif %}
+</div>
 {% endblock%}

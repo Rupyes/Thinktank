@@ -1,26 +1,77 @@
 {% extends 'thinktank/base.html' %}
-
+{% load static %}
 {% block title %}Forums{% endblock%}
+{% block link %}
+<link rel="stylesheet" href={% static "custom/css/style1.css" %} />
+{%endblock%}
 
 {% block content %}
 <h3>Forums</h3>
 <hr>
 {% for forum in forum_list%}
-<p>
-    <li><a href="{% url 'forums:forum_detail' pk=forum.pk%}">{{forum.q_title}}
-            [{{forum.questioner}}] </a> [[{{forum.get_tag_display}}]]
+<div class="forum_listshow">
+    <div class="answers_count">
         {% with total=forum.comments.count%}
-        - {{total}} comment{{total|pluralize}}
+        <p style="text-align:center">{{total}}<br>answer{{total|pluralize}}</p>
         {% endwith%}
-</p>
+    </div>
+    <div class="holder">
+        <div class="q_n_detail">
+            <a href="{% url 'forums:forum_detail' pk=forum.pk%}">{{forum.q_title}}
+            </a> <br> <text style="font-size: 14px;">{{forum.detail|truncatewords:30}}</text>
+        </div>
+        <div class="tags">
+            <p><span class="badge badge-primary">{{forum.get_tag_display}}</span></p>
+        </div>
+        <div class="asker_detail">
+            <div class="asked_on">
+                <p>asked {{ forum.asked_on}}</p>
+            </div>
+            <div class="small_holder">
+                <div class="user_pic_on_list">
+                    {% if forum.questioner.is_student%}
+                    {% if forum.questioner.student.profile_picture   %}
+                    <img src="{{ forum.questioner.student.profile_picture.url }}" alt="picture" width="50" />
+                    {%endif%}
+                    {% if not forum.questioner.student.profile_picture %}
+                    <img src="/media/icons/person_icon.png" style="background:#ddd;" alt="picture" width="50" />
+                    {% endif %}
+                    {%endif%}
+
+                    {% if forum.questioner.is_faculty%}
+                    {% if  forum.questioner.faculty.profile_picture %}
+                    <img src="{{ forum.questioner.faculty.profile_picture.url }}" alt="picture" width="50" />
+                    {%endif%}
+                    {% if not forum.questioner.faculty.profile_picture %}
+                    <img src="/media/icons/person_icon.png" style="background:#ddd;" alt="picture" width="50" />
+                    {%endif%}
+                    {%endif%}
+
+                </div>
+                <div class="user_name_on_list">
+                    <p>{{forum.questioner}} <br>
+                        {% if forum.questioner.is_student %}
+                        student, {{forum.questioner.student.department}}
+                        {% endif %}
+                        {% if forum.questioner.is_faculty %}
+                        faculty, {{forum.questioner.faculty.department}}
+                        {% endif %}
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 {% empty%}
 <p>No forums.</p>
 {% endfor %}
-<hr>
-{% if not user.is_authenticated %}
-<p>
+
+<div style="float:left; width: 100%; padding:10px;">
+    {% if not user.is_authenticated %}
     <a href="{% url 'homepage:index'%}">Login to create forum</a>
-</p>
-{% endif %}
-<a class="btn btn-secondary" href="{% url 'forums:create_forum' %}">Create Forum</a>
+    {% endif %}
+    {% if user.is_authenticated %}
+    <a class="btn btn-success" href="{% url 'forums:create_forum' %}">Create Forum</a>
+    {% endif %}
+</div>
 {% endblock%}

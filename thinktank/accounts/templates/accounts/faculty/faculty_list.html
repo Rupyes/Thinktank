@@ -1,11 +1,32 @@
 {% extends 'thinktank/base.html' %}
 
 {% block title %}Faculties{% endblock%}
+{% load static %}
+{% block link %}
+<link rel="stylesheet" href={% static "custom/css/style1.css" %} />
+{% endblock %}
 
 {% block content %}
+<h3>Faculties</h3>
+<hr>
+<ul class="list-unstyled"></ul>
 {% for faculty in faculty_list %}
-<h2>{{ faculty.get_full_name }}</h2>
+<li class="media display_card">
+    <h2></h2>
+    {% if faculty.profile_picture %}
+    <img src="{{ faculty.profile_picture.url }}" alt="picture" width="50" class="mr-3" />
+    {%endif%}
+    {% if not faculty.profile_picture %}
+    <img src="/media/icons/person_icon.png" style="background:#ddd;" width="50" class="mr-3" />
+    {%endif%}
+    <div class="media-body">
+        <h5 class="mt-0 mb-1"><a href="{% url 'accounts:profile' username=faculty%}">{{ faculty.get_full_name }}</a>
+        </h5>
+        {{faculty.get_department_display}}, {{faculty.university}}
+    </div>
+</li>
 {% empty%}
 <h2>No faculty. :(</h2>
 {% endfor%}
+</ul>
 {% endblock %}

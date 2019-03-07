@@ -47,10 +47,8 @@ def add_material(request):
 def download_material(request, file_name):
     file_ext = file_name.split(".")[-1]
     file_path = os.path.join(
-        settings.MEDIA_ROOT, "material", "documents", file_name)
+        settings.MEDIA_ROOT, "documents", "material", file_name)
     file_mimetype = mimetypes.guess_type(file_path)
-    print("file_path", file_path, os.path.exists(
-        file_path), file_ext, file_mimetype)
     if os.path.exists(file_path):
         with open(file_path, 'rb') as fh:
             response = HttpResponse(

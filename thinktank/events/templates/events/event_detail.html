@@ -2,13 +2,16 @@
 
 {% block title %}Events{% endblock%}
 
+
+
 {% block content %}
 <h1>{{event.title}} </h1>
-<p>posted by: {{event.user}}</p>
+<p>posted by: {{event.user.get_full_name}} <br> on {{ event.when_date}} {% if event.when_time%}at
+    {{ event.when_time}}{% endif%}</p>
 <p style="font-size:15px; font-style:italic;">-at: {{event.venue}}</p>
 <hr>
-<p>{{event.description}}</p>
-
+<p>Details: <br> {{event.description}}</p>
+<hr>
 {% if user.is_authenticated and event.user == request.user.faculty %}
 
 <a class="btn btn-primary" href="{% url 'events:event_edit' pk=event.pk%}">Edit</a>
@@ -18,10 +21,12 @@
 <div style="padding-bottom:  5px;float: left; width: 100%;">
     <h3>Photos</h3>
     <hr>
-    <div style="width: 658px; float:left; background: #ddd;">
+    <div style="width: 658px; float:left;">
         {% for eventphoto in event.event_pics.all %}
-        <div style="border:1px dashed #000; margin-left: 5px; margin-top:5px; float: left;">
-            <img src="{{eventphoto.thumbnail.url}}" class="img-thumbnail" alt="">
+        <div style="margin-left: 5px; margin-top:5px; float: left; overflow: hidden; width: 100px; height: 100px;">
+            <a href="{{ eventphoto.photo.url }}">
+                <img src="{{eventphoto.thumbnail.url}}" style="margin: -50px 0 0 -10px;" alt="">
+            </a>
         </div>
         {% endfor %}
     </div>
@@ -32,18 +37,20 @@
 <div style="padding-bottom:  5px;float: left; width: 100%;">
     <h3>Photos</h3>
     <hr>
-    <div style="width: 658px; float:left; background: #ddd; padding: 5px;">
+    <div style="width: 658px; float:left; padding: 5px;">
         {% for eventphoto in event.event_pics.all %}
-        <div style="border:1px dashed #000; margin-left: 5px;  float: left;">
-            <p style="margin: 0 10 0 0; text-align: right;"> <a href="{% url 'events:delete_photo' pk=event.pk pk1=eventphoto.pk%}">X</a>
+        <div style="background:#fff;margin-left: 5px;  float: left; padding: 5px;">
+            <p style="margin: 0 10 0 0; text-align: right;"> <a
+                    href="{% url 'events:delete_photo' pk=event.pk pk1=eventphoto.pk%}">X</a>
             </p>
+
             <img src="{{eventphoto.thumbnail.url}}" class="img-thumbnail" alt="">
 
         </div>
         {% endfor %}
     </div>
     <a href="{% url 'events:add_photo' pk=event.pk%}">
-        <img style="background:#ddd; width:100;float: right;" src="/media/icons/add_img.png" alt="">
+        <img style=" width:100;float: right;" src="/media/icons/add_img.png" alt="">
     </a>
 </div>
 {% endif %}
@@ -53,9 +60,9 @@
     <hr>
     <h3>Videos</h3>
     <hr>
-    <div style="width: 658px; float:left; background: #ddd;">
+    <div style="width: 658px; float:left;">
         {% for eventvideo in event.event_videos.all %}
-        <div style="border:1px dashed #000; margin-left: 5px; margin-bottom: 5px; margin-top:5px; float:left;">
+        <div style="background: #fff; margin-left: 5px; margin-bottom: 5px; margin-top:5px; float:left;">
             <video width="200" controls muted>
                 <source src="{{eventvideo.video.url}}" type="video/mp4">
                 </source>
@@ -71,10 +78,11 @@
     <hr>
     <h3>Videos</h3>
     <hr>
-    <div style="width: 658px; float:left; background: #ddd; padding:5px;">
+    <div style="width: 658px; float:left;padding:5px;">
         {% for eventvideo in event.event_videos.all %}
-        <div style="border:1px dashed #000; margin-left: 5px; float:left;">
-            <p style="margin: 0 10 0 0; text-align: right;"> <a href="{% url 'events:delete_video' pk=event.pk pk1=eventvideo.pk%}">X</a></p>
+        <div style="background: #fff; margin-left: 5px; float:left;">
+            <p style="margin: 0 10 0 0; text-align: right;"> <a
+                    href="{% url 'events:delete_video' pk=event.pk pk1=eventvideo.pk%}">X</a></p>
             <video width="200" controls muted>
                 <source src="{{eventvideo.video.url}}" type="video/mp4">
                 </source>
@@ -84,7 +92,7 @@
         {% endfor %}
     </div>
     <a href="{% url 'events:add_video' pk=event.pk%}">
-        <img style="background:#ddd; width:100;float: right;" src="/media/icons/add_video_icon.png" alt="">
+        <img style=" width:100;float: right;" src="/media/icons/add_video_icon.png" alt="">
     </a>
 </div>
 {% endif %}

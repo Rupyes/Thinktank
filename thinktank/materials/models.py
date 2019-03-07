@@ -21,7 +21,7 @@ def upload_img_to_with_name(instance, filename):
 
 
 def upload_doc_to_with_name(instance, filename):
-    return os.path.join('material', 'documents', filename)
+    return os.path.join('documents', 'material', filename)
 
 
 def upload_vid_to_with_name(instance, filename):

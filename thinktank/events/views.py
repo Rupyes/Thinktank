@@ -9,6 +9,7 @@ from .models import Event, EventPhoto, EventVideo
 from .forms import EventForm, ImageForm, VideoForm
 from django.contrib import messages
 from django.db import transaction
+import datetime
 # Create your views here.
 
 
@@ -16,7 +17,13 @@ class EventList(ListView):
     model = Event
 
     def get_queryset(self):
-        return Event.objects.all()
+        return Event.objects.all().order_by('-when_date', '-when_time')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['upcoming_events'] = Event.objects.filter(
+            when_date__gt=datetime.datetime.now().date()).order_by('-when_date')
+        return context
 
 
 class EventDetail(DetailView):
@@ -27,19 +34,6 @@ class EventDelete(LoginRequiredMixin, DeleteView):
     model = Event
     success_url = reverse_lazy('events:event_list')
 
-
-# class EventCreateView(LoginRequiredMixin, CreateView):
-#     model = Event
-#     form_class = EventForm
-
-#     def form_valid(self, form):
-#         self.object = form.save(commit=False)
-#         self.object.user = self.request.user.faculty
-#         self.object.save()
-#         return super().form_valid(form)
-
-#     def get_success_url(self):
-#         return reverse_lazy('events:event_detail', pk=self.object.pk)
 
 ImageFormSet = modelformset_factory(
     EventPhoto, form=ImageForm,  extra=5)
@@ -81,9 +75,6 @@ def event_post_view(request):
                 else:
                     form = EventVideo(event=event_form, video=video)
                     vid_form.save()
-
-            messages.success(request,
-                             "Posted!")
 
             return redirect("events:event_detail", pk=event_form.pk)
         else:

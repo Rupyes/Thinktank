@@ -6,25 +6,23 @@ from .views import (
     logout_view,
     faculty_register,
     faculty_login,
-    # profile,
+    profile,
     change_password_view,
     StudentUpdate,
     DashboardView,
     FacultyUpdateView,
     FacultyListView,
-    UserProfileView,
+    StudentListView,
 )
 
 app_name = "accounts"
 
 urlpatterns = [
-    # url(r'^profile/(?P<username>[\w.@+-]+)$', profile, name='profile'),
+    url(r'^profile/(?P<username>[\w.@+-]+)$', profile, name='profile'),
     url(r'^student/register/$', student_register, name="stud_register"),
     url(r'^faculty/register/$', faculty_register, name="faculty_register"),
     url(r'^faculties/$', FacultyListView.as_view(), name="faculty_list"),
-    url(r'profile/(?P<username>[\w.@+-]+)$',
-        UserProfileView.as_view(),
-        name="profile"),
+    url(r'^students/$', StudentListView.as_view(), name="student_list"),
     url(r'^(?P<username>[\w.@+-]+)/dashboard/$',
         DashboardView.as_view(),
         name='dashboard'),

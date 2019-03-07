@@ -32,9 +32,10 @@ class Event(models.Model):
         Faculty, on_delete=models.CASCADE, related_name='event')
     title = models.CharField(max_length=255)
     description = models.TextField(blank=True)
-    video = models.FileField(upload_to=user_directory_path_vid, blank=True)
     posted_date = models.DateField(auto_now_add=True)
     venue = models.CharField(max_length=100, blank=True)
+    when_date = models.DateField(blank=False)
+    when_time = models.TimeField(blank=True, null=True)
 
     def __str__(self):
         return self.title

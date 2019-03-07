@@ -3,8 +3,9 @@
 {% block title %}HomePage{% endblock%}
 
 {% block content %}
+{% if not user.is_authenticated%}
 <div class="login_faculty">
-    {% if not user.is_authenticated%}
+
     <h3>Login!!</h3>
     <form method="post" class="form">
         {% csrf_token %}
@@ -19,20 +20,29 @@
             OR, <a href="{% url 'reset_password'%}">Forgot password?</a>
         </p>
     </form>
-    {% endif%}
-    {% if user.is_authenticated%}
-    <h2>Hi! {{ request.user.first_name}}</h2>
-    <p><a href="{% url 'accounts:logout'%}">Logout</a></p>
-    {% endif %}
+
 </div>
+
 <div class="desc">
-    <p style="margin-left: 15px; text-justify: auto;">
-        Welcome to the Konaseema Think Tank. The purpose of this website is to bring all intellectuals on
+
+    <p style="margin-left: 10px; font-size: 18px; ">
+        <b>Welcome</b> to the Konaseema Think Tank. The purpose of this website is to bring all intellectuals on
         one platform and provide them a forum for innovation, creativity and sharing intellectual
         solutions and services to the researchers, student community and citizens.
     </p>
 </div>
+{% endif%}
+{% if user.is_authenticated%}
 
-
+<div class="desc" style="float:left; width: 100%;">
+    <h2>Hi! {{ request.user.first_name}}</h2>
+    <hr>
+    <p style="margin-left: 10px; font-size: 18px; ">
+        <b>Welcome</b> to the Konaseema Think Tank. The purpose of this website is to bring all intellectuals on
+        one platform and provide them a forum for innovation, creativity and sharing intellectual
+        solutions and services to the researchers, student community and citizens.
+    </p>
+</div>
+{% endif %}
 
 {% endblock%}

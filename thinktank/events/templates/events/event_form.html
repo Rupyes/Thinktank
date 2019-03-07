@@ -1,5 +1,4 @@
 {% extends 'thinktank/base.html' %}
-
 {% block title %}Create Event{% endblock%}
 
 {% block content %}
@@ -7,6 +6,7 @@
 <form action="" method="POST" enctype="multipart/form-data">
     {% csrf_token %}
     {{eventForm.as_p}}
+    {{ eventForm.media }}
     <h4>Images:</h4>
     <hr>
     {{ formset.management_form }}
@@ -22,4 +22,5 @@
 
     <input type="submit" class="btn" name="" id="">
 </form>
+
 {% endblock %}

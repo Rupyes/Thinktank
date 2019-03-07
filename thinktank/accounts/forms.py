@@ -9,24 +9,30 @@ User = get_user_model()
 
 
 class StudentSignUpForm(UserCreationForm):
-    first_name = forms.CharField(label="First Name*")
-    middle_name = forms.CharField(label="Middle Name", required=False)
-    last_name = forms.CharField(label="Last Name*")
+    first_name = forms.CharField(label="First Name*", widget=forms.TextInput(
+        attrs={'class': 'form-control'}))
+    middle_name = forms.CharField(label="Middle Name", required=False, widget=forms.TextInput(
+        attrs={'class': 'form-control'}))
+    last_name = forms.CharField(label="Last Name*", widget=forms.TextInput(
+        attrs={'class': 'form-control'}))
     gender = forms.ChoiceField(label="gender", choices=SEX,
-                               widget=forms.Select(), required=True)
+                               widget=forms.Select(attrs={'class': 'form-control'}), required=True)
     date_of_birth = forms.DateField(
         label="Date of Birth",
         widget=forms.DateInput(
-            format=('%Y-%m-%d'), attrs={'placeholder': 'yyyy-mm-dd'}))
-    college = forms.CharField(label="College", max_length=255)
-    email = forms.EmailField(label="Email Address", max_length=255)
+            format=('%Y-%m-%d'), attrs={'placeholder': 'YYYY-MM-DD', 'class': 'form-control'}))
+    college = forms.CharField(label="College", max_length=255, widget=forms.TextInput(
+        attrs={'class': 'form-control'}))
+    email = forms.EmailField(label="Email Address", max_length=255, widget=forms.TextInput(
+        attrs={'class': 'form-control'}))
     department = forms.ChoiceField(
         label="Department",
         choices=DEPARTMENTS,
         initial='',
-        widget=forms.Select(),
+        widget=forms.Select(attrs={'class': 'form-control'}),
         required=True)
-    university = forms.CharField(label="University", max_length=255)
+    university = forms.CharField(label="University", max_length=255, widget=forms.TextInput(
+        attrs={'class': 'form-control'}))
 
     class Meta:
         model = User
@@ -42,7 +48,15 @@ class StudentSignUpForm(UserCreationForm):
             'college',
             'university',
         )
+
         exclude = ('username', )
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['password1'].widget.attrs['placeholder'] = 'Password'
+        self.fields['password1'].widget.attrs['class'] = 'form-control'
+        self.fields['password2'].widget.attrs['placeholder'] = 'Confirm Password'
+        self.fields['password2'].widget.attrs['class'] = 'form-control'
 
     @transaction.atomic
     def save(self, commit=True):
@@ -78,24 +92,30 @@ class StudentSignUpForm(UserCreationForm):
 
 
 class FacultySignUpForm(UserCreationForm):
-    first_name = forms.CharField(label="First Name*")
-    middle_name = forms.CharField(label="Middle Name", required=False)
-    last_name = forms.CharField(label="Last Name*")
-    gender = forms.ChoiceField(label="gender", choices=SEX,
-                               widget=forms.Select(), required=True)
+    first_name = forms.CharField(
+        label="First Name*", widget=forms.TextInput(attrs={'class': 'form-control'}))
+    middle_name = forms.CharField(label="Middle Name", required=False, widget=forms.TextInput(
+        attrs={'class': 'form-control'}))
+    last_name = forms.CharField(
+        label="Last Name*", widget=forms.TextInput(attrs={'class': 'form-control'}))
+    gender = forms.ChoiceField(label="Gender", choices=SEX,
+                               widget=forms.Select(attrs={'class': 'form-control'}), required=True)
     date_of_birth = forms.DateField(
         label="Date of Birth",
         widget=forms.DateInput(
-            format=('%Y-%m-%d'), attrs={'placeholder': 'yyyy-mm-dd'}))
-    college = forms.CharField(label="College", max_length=255)
-    email = forms.EmailField(label="Email Address", max_length=255)
+            format=('%Y-%m-%d'), attrs={'placeholder': 'YYYY-MM-DD', 'class': 'form-control'}))
+    college = forms.CharField(label="College", max_length=255, widget=forms.TextInput(
+        attrs={'class': 'form-control'}))
+    email = forms.EmailField(label="Email Address", max_length=255,
+                             widget=forms.TextInput(attrs={'class': 'form-control'}))
     department = forms.ChoiceField(
         label="Department",
         choices=DEPARTMENTS,
         initial='',
-        widget=forms.Select(),
+        widget=forms.Select(attrs={'class': 'form-control'}),
         required=True)
-    university = forms.CharField(label="University", max_length=255)
+    university = forms.CharField(label="University", max_length=255, widget=forms.TextInput(
+        attrs={'class': 'form-control'}))
 
     class Meta:
         model = User
@@ -112,6 +132,13 @@ class FacultySignUpForm(UserCreationForm):
             'university',
         )
         exclude = ('username', )
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['password1'].widget.attrs['placeholder'] = 'Password'
+        self.fields['password1'].widget.attrs['class'] = 'form-control'
+        self.fields['password2'].widget.attrs['placeholder'] = 'Confirm Password'
+        self.fields['password2'].widget.attrs['class'] = 'form-control'
 
     @transaction.atomic
     def save(self, commit=True):
@@ -147,8 +174,10 @@ class FacultySignUpForm(UserCreationForm):
 
 
 class UserLoginForm(forms.Form):
-    query = forms.CharField(label='Username / Email')
-    password = forms.CharField(label='Password', widget=forms.PasswordInput)
+    query = forms.CharField(label='Username / Email',
+                            widget=forms.TextInput(attrs={'class': 'form-control'}))
+    password = forms.CharField(
+        label='Password', widget=forms.PasswordInput(attrs={'class': 'form-control'}))
 
     def clean(self, *args, **kwargs):
         query = self.cleaned_data.get('query')

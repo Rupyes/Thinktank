@@ -1,0 +1,79 @@
+.display_card{
+    border: 1px solid #ddd;
+    margin: 10px;
+    padding: 10px;
+    width: fit-content;
+}
+
+.forum_listshow{
+    float: left;
+    width: 100%;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+.holder{
+    float: left;
+    width: 90%;
+    padding-left: 10px; 
+
+}
+
+.answers_count{
+    float: left;
+    width: 10%;
+    background-color: rgb(128, 184, 127);
+}
+
+.answers_count p{
+    padding-top: 10px; 
+    color: #fff;
+}
+
+.q_n_detail{
+    float: left;
+    width: 100%;
+
+}
+
+.tags{
+    float: left;
+    padding-top: 40px;
+}
+
+.asker_detail{
+    float: right;
+    width: 150px;
+    padding: 3px;
+    height: 100px;
+}
+
+.asked_on{
+    float: left;
+    width: 100%;
+}
+
+.asked_on p{
+    font-size: 10px;
+    padding: 0;
+    margin: 0;
+}
+
+.small_holder{
+    width: 100%;
+    float: left;
+}
+
+.user_pic_on_list{
+    float: left;
+}
+
+.user_name_on_list{
+    float: left;
+    padding-left: 3px;
+}
+
+.user_name_on_list p{
+    margin: 0px;
+    font-size: 10px;
+}
