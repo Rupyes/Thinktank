@@ -4,6 +4,9 @@ from accounts.forms import UserLoginForm
 from .forms import ContactUsForm
 from django.contrib.auth import login
 from django.core.mail import send_mail
+from events.models import Event
+import datetime
+from django.conf import settings
 
 
 def index(request, *args, **kwargs):
@@ -16,7 +19,9 @@ def index(request, *args, **kwargs):
                 user_obj.username))
     else:
         form = UserLoginForm()
-    return render(request, 'homepage/index.html', {'form': form})
+    upcoming_events = Event.objects.filter(
+        when_date__gte=datetime.datetime.now().date()).order_by('when_date', 'when_time')
+    return render(request, 'homepage/index.html', {'form': form, 'upcoming_events': upcoming_events})
 
 
 def about(request):
@@ -34,7 +39,7 @@ def contact(request):
                 subject,
                 message,
                 from_email,
-                ['to@example.com'],
+                [settings.EMAILS_TO],
                 fail_silently=False,
             )
             return HttpResponseRedirect('/thanks/')

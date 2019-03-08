@@ -1,6 +1,7 @@
 autopep8==1.4.3
 Django==1.11.20
 django-cleanup==3.2.0
+gunicorn==19.9.0
 Pillow==5.4.1
 pycodestyle==2.4.0
 pytz==2018.7

@@ -31,6 +31,8 @@ ALLOWED_HOSTS = []
 
 AUTH_USER_MODEL = 'accounts.MyUser'
 
+EMAILS_TO = EMAILS_TO_LIST
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -133,3 +135,10 @@ STATIC_URL = '/static/'
 
 LOGIN_URL = '/'
 LOGOUT_REDIRECT_URL = '/thanks/'
+
+# Email
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'konaseemathinktank2019@gmail.com'
+EMAIL_HOST_PASSWORD = 'thisisourthinktank2019'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True

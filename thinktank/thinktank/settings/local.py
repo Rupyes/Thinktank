@@ -31,6 +31,8 @@ ALLOWED_HOSTS = []
 
 AUTH_USER_MODEL = 'accounts.MyUser'
 
+EMAILS_TO = EMAILS_TO_LIST
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -140,7 +142,9 @@ LOGOUT_REDIRECT_URL = '/thanks/'
 LOGIN_URL = '/'
 
 
-EMAIL_HOST = 'localhost'
-EMAIL_PORT = 1025
-
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+# Email
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = EMAIL_OF_HOST
+EMAIL_HOST_PASSWORD = EMAIL_PSD
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True

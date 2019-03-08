@@ -24,8 +24,7 @@
 </div>
 
 <div class="desc">
-
-    <p style="margin-left: 10px; font-size: 18px; ">
+    <p style="margin-left: 5px; font-size: 18px; ">
         <b>Welcome</b> to the Konaseema Think Tank. The purpose of this website is to bring all intellectuals on
         one platform and provide them a forum for innovation, creativity and sharing intellectual
         solutions and services to the researchers, student community and citizens.
@@ -37,12 +36,31 @@
 <div class="desc" style="float:left; width: 100%;">
     <h2>Hi! {{ request.user.first_name}}</h2>
     <hr>
-    <p style="margin-left: 10px; font-size: 18px; ">
+    <p style="margin-left: 5px; font-size: 18px; ">
         <b>Welcome</b> to the Konaseema Think Tank. The purpose of this website is to bring all intellectuals on
         one platform and provide them a forum for innovation, creativity and sharing intellectual
         solutions and services to the researchers, student community and citizens.
     </p>
 </div>
 {% endif %}
+<div style="float:left; width: 100% ;margin-top:20px;">
+
+    <h3>Upcoming Events</h3>
+    <hr>
+    {% for event in upcoming_events %}
+    <div class="card" style="width: 16rem; height: 270px; float: left; margin-left:5px; margin-bottom: 5px;">
+        <div class="card-body">
+            <h5 class="card-title">{{ event.title}}</h5>
+            <hr>
+            <p class="card-text">{{event.description|truncatewords:'10'}}</p>
+            <p style="font-size: 12px;">on {{event.when_date}} <br>at {{event.venue}}</p>
+            <a href="{% url 'events:event_detail' pk=event.pk%}" class="btn btn-primary">Detail</a>
+        </div>
+    </div>
+    {% empty %}
+    <p>No upcoming events.</p>
+    {% endfor%}
+
+</div>
 
 {% endblock%}
