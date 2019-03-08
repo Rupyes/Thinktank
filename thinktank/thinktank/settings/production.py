@@ -27,7 +27,7 @@ SECRET_KEY = SECRET_KEY1
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['konaseema.pythonanywhere.com', ]
 
 AUTH_USER_MODEL = 'accounts.MyUser'
 
