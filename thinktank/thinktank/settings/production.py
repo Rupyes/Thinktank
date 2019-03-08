@@ -133,7 +133,10 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR), 'staticfiles')
+STATICFILES_DIRS = (os.path.join(BASE_DIR, "static_storage"), )
 
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 LOGOUT_REDIRECT_URL = '/thanks/'
 LOGIN_URL = '/'
@@ -141,7 +144,7 @@ LOGIN_URL = '/'
 
 # Email
 EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'konaseemathinktank2019@gmail.com'
-EMAIL_HOST_PASSWORD = 'thisisourthinktank2019'
+EMAIL_HOST_USER = EMAIL_OF_HOST
+EMAIL_HOST_PASSWORD = EMAIL_PSD
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
