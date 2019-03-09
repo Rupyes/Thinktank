@@ -3,23 +3,23 @@
 {% block title %}Events{% endblock%}
 
 {% block content %}
-<h1>Upcoming Events</h1>
+<h4>Upcoming Events:</h4>
 <hr>
 {% for upevent in upcoming_events %}
 <div style="float:left; width: 100%; background: #fff; padding: 10px; margin-bottom: 15px;">
-    <h3><a href="{% url 'events:event_detail' pk=upevent.pk%}">{{upevent.title}}</a></h3>
-    <p> at {{upevent.venue}} on {{upevent.when_date}}</p>
+    <h5><a href="{% url 'events:event_detail' pk=upevent.pk%}">{{upevent.title}}</a></h5>
+    <p style="font-size: 14px;"> at {{upevent.venue}} on {{upevent.when_date}}</p>
 </div>
 {% empty%}
 <p>No upcoming events.</p>
 {% endfor %}
 <hr>
-<h1>Events:</h1>
+<h4>Events:</h4>
 <hr>
 {% for event in event_list %}
 <div style="float:left; width: 100%; background: #fff; padding: 10px; margin-bottom: 15px;">
-    <h3><a href="{% url 'events:event_detail' pk=event.pk%}">{{event.title}}</a></h3>
-    <p> at {{event.venue}} on {{event.when_date}}</p>
+    <h5><a href="{% url 'events:event_detail' pk=event.pk%}">{{event.title}}</a></h5>
+    <p style="font-size: 14px;"> at {{event.venue}} on {{event.when_date}}</p>
 </div>
 {% empty %}
 <p>No Events.</p>

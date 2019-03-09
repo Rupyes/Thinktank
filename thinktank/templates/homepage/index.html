@@ -6,7 +6,7 @@
 {% if not user.is_authenticated%}
 <div class="login_faculty">
 
-    <h3>Login!!</h3>
+    <h4>Login!!</h4>
     <form method="post" class="form">
         {% csrf_token %}
         {{form.as_p}}
@@ -34,7 +34,7 @@
 {% if user.is_authenticated%}
 
 <div class="desc" style="float:left; width: 100%;">
-    <h2>Hi! {{ request.user.first_name}}</h2>
+    <h4>Hi! {{ request.user.first_name}}</h4>
     <hr>
     <p style="margin-left: 5px; font-size: 18px; ">
         <b>Welcome</b> to the Konaseema Think Tank. The purpose of this website is to bring all intellectuals on
@@ -45,7 +45,7 @@
 {% endif %}
 <div style="float:left; width: 100% ;margin-top:20px;">
 
-    <h3>Upcoming Events</h3>
+    <h4>Upcoming Events</h4>
     <hr>
     {% for event in upcoming_events %}
     <div class="card" style="width: 100%; float: left; margin-left:5px; margin-bottom: 5px;">

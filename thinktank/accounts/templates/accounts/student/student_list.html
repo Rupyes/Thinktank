@@ -7,7 +7,7 @@
 {% endblock %}
 
 {% block content %}
-<h3>Students</h3>
+<h4>Students</h4>
 <hr>
 <ul class="list-unstyled"></ul>
 {% for student in student_list %}
@@ -21,7 +21,7 @@
     <div class="media-body">
         <h5 class="mt-0 mb-1"><a href="{% url 'accounts:profile' username=student%}">{{ student.get_full_name }}</a>
         </h5>
-        {{student.get_department_display}}, {{student.university}}
+        <p style="margin:0; font-size: 14px;">{{student.get_department_display}}, {{student.university}}</p>
     </div>
 </li>
 
