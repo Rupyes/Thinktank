@@ -16,6 +16,8 @@ eventvideo_*.*
 event_P_thumbnail_*.*
 materialimage_*.*
 materialvideo_*.*
+materialimage_*.*
+mi_thumnail_*.*
 
 # C extensions
 *.so
