@@ -6,7 +6,6 @@ from django.contrib.auth import login
 from django.core.mail import send_mail
 from events.models import Event
 import datetime
-from django.conf import settings
 
 
 def index(request, *args, **kwargs):
@@ -35,11 +34,12 @@ def contact(request):
             subject = form.cleaned_data['subject']
             message = form.cleaned_data['detail']
             from_email = form.cleaned_data['from_email']
+            msg = from_email + " sent feedback: " + message
             send_mail(
                 subject,
-                message,
+                msg,
                 from_email,
-                [settings.EMAILS_TO],
+                ["rupyesmhj@gmail.com", "konaseemathinktank2019@gmail.com", ],
                 fail_silently=False,
             )
             return HttpResponseRedirect('/thanks/')

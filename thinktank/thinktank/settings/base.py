@@ -31,7 +31,6 @@ ALLOWED_HOSTS = []
 
 AUTH_USER_MODEL = 'accounts.MyUser'
 
-EMAILS_TO = EMAILS_TO_LIST
 
 # Application definition
 

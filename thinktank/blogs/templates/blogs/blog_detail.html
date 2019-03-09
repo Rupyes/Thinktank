@@ -12,11 +12,10 @@
         <div class="asker_detail" style="float:left; width: 300px; height: 75px;">
             <div class="small_holder" style="float:left">
                 <div class="user_pic_on_list">
-                    {% if  blog.user.faculty.profile_picture %}
-                    <img src="{{ forum.questioner.faculty.profile_picture.url }}" alt="picture" class="rounded-circle"
-                        width="70" />
+                    {% if  blog.user.profile_picture %}
+                    <img src="{{ blog.user.profile_picture.url }}" alt="picture" class="rounded-circle" width="70" />
                     {%endif%}
-                    {% if not blog.user.faculty.profile_picture %}
+                    {% if not blog.user.profile_picture %}
                     <img src="/media/icons/person_icon.png" style="background:#ddd;" class="rounded-circle"
                         alt="picture" width="70" />
                     {%endif%}

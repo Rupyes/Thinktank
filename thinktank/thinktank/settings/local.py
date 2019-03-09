@@ -27,11 +27,10 @@ SECRET_KEY = SECRET_KEY1
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['konaseema.pythonanywhere.com', ]
+ALLOWED_HOSTS = ['konaseema.pythonanywhere.com', '127.0.0.1']
 
 AUTH_USER_MODEL = 'accounts.MyUser'
 
-EMAILS_TO = EMAILS_TO_LIST
 
 # Application definition
 
