@@ -11,12 +11,15 @@ from django.dispatch import receiver
 
 
 def store_thumnail(instance, filename):
+    ext = filename.split('.')[-1]
+    first = filename.split('.')[0]
+    filename = "mi_thumnail_{}.{}".format(first, ext)
     return os.path.join('images', 'material', 'thumbnail', filename)
 
 
 def upload_img_to_with_name(instance, filename):
     ext = filename.split('.')[-1]
-    filename = "image_{}.{}".format(str(uuid.uuid4()), ext)
+    filename = "materialimage_{}.{}".format(str(uuid.uuid4()), ext)
     return os.path.join('images', 'material', filename)
 
 
@@ -26,7 +29,7 @@ def upload_doc_to_with_name(instance, filename):
 
 def upload_vid_to_with_name(instance, filename):
     ext = filename.split('.')[-1]
-    filename = "video_{}.{}".format(str(uuid.uuid4()), ext)
+    filename = "materialvideo_{}.{}".format(str(uuid.uuid4()), ext)
     return os.path.join('videos', 'material', filename)
 
 

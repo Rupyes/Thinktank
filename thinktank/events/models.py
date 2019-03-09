@@ -13,17 +13,20 @@ from django.dispatch import receiver
 
 def user_directory_path_img(instance, filename):
     ext = filename.split('.')[-1]
-    filename = "image_{}.{}".format(str(uuid.uuid4()), ext)
+    filename = "eventimage_{}.{}".format(str(uuid.uuid4()), ext)
     return os.path.join('images', 'event', filename)
 
 
 def user_directory_path_vid(instance, filename):
     ext = filename.split('.')[-1]
-    filename = "video_{}.{}".format(str(uuid.uuid4()), ext)
+    filename = "eventvideo_{}.{}".format(str(uuid.uuid4()), ext)
     return os.path.join('videos', 'event', filename)
 
 
 def store_thumnail(instance, filename):
+    ext = filename.split('.')[-1]
+    first = filename.split('.')[0]
+    filename = "event_P_thumbnail_{}.{}".format(first, ext)
     return os.path.join('images', 'event', 'thumbnail', filename)
 
 
