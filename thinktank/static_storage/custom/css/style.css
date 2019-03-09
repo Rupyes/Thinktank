@@ -77,7 +77,44 @@ body{
 .blocks{
     float: left;
     width: 100%;
-    border: 1px dashed #000;
+    background: #fff;
+    box-shadow: 1px 1px 7px grey;
     margin-bottom: 10px;
     padding: 10px;
+}
+
+.blocks h5{
+    padding: 0;
+}
+
+.blocks h5{
+    border-bottom: 1px #ddd solid;
+}
+
+.material_container{
+    background:#fff;
+    margin-left: 5px;
+    float: left;
+    padding: 5px;
+}
+
+.material_container a{
+    color: maroon;
+}
+
+.material_container a:hover{
+    text-decoration: none;
+}
+
+.material_container:hover{
+    box-shadow: 1px 1px 2px grey;
+}
+
+.showing_name{
+    font-size: 14px;
+}
+
+.showing_name a{
+    color: brown;
+    font-size: 14px;
 }

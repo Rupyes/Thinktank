@@ -1,25 +1,30 @@
 {% extends 'thinktank/base.html' %}
 
+{% block title%}Material{%endblock%}
+
 {% block content %}
 <h2>{{material.title}}</h2>
-<p>-by {{material.faculty.user.get_full_name}}</p>
-<p>{{material.description}}</p>
+<p class="showing_name">By:
+    <a href="{% url 'accounts:profile' username=material.faculty%}">
+        {{material.faculty.user.get_full_name}} <span class="badge badge-primary">{{material.faculty.department}}</span>
+    </a>
+</p>
+<hr>
+<p>Description: <br>{{material.description}}</p>
 {% if request.user.is_authenticated and request.user.is_faculty %}
 <p><a href="{% url 'materials:material_delete' pk=material.pk %}">Delete</a></p>
 {% endif %}
-<hr>
-
+<p>Attachments :</p>
 <div class="blocks">
-    <h3>Documents
+    <h5>Documents
         {% if request.user.is_authenticated and request.user == material.faculty.user %}
         <a href="{% url 'materials:add_document' pk=material.pk%}">
             <img style="width:25;float: right;" src="/media/icons/add_video_icon.png" alt="add files">
         </a>
         {%endif%}
-    </h3>
-    <hr>
+    </h5>
     {% for material_doc in material.documents.all %}
-    <div style="border:1px dashed #000; margin-left: 5px;  float: left; padding: 5px;">
+    <div class="material_container">
         {% if request.user == material.faculty.user %}
         <p style="margin: 0 10 0 0; text-align: right;">
             <a onclick="return confirm('Are you sure you want to delete this?')"
@@ -35,16 +40,15 @@
 
 </div>
 <div class="blocks">
-    <h3>Links
+    <h5>Links
         {% if request.user.is_authenticated and request.user == material.faculty.user %}
         <a href="{% url 'materials:add_link' pk=material.pk%}">
             <img style="width:25;float: right;" src="/media/icons/add_video_icon.png" alt="add links">
         </a>
         {%endif%}
-    </h3>
-    <hr>
+    </h5>
     {% for material_link in material.links.all %}
-    <div style="border:1px dashed #000; margin-left: 5px;  float: left;">
+    <div class="material_container">
         {% if request.user == material.faculty.user %}
         <p style="margin: 0 10 0 0; text-align: right;">
             <a onclick="return confirm('Are you sure you want to delete this?')"
@@ -60,16 +64,16 @@
 
 </div>
 <div class="blocks">
-    <h3>Videos
+    <h5>Videos
         {% if request.user.is_authenticated and request.user == material.faculty.user %}
         <a href="{% url 'materials:add_video' pk=material.pk%}">
             <img style="width:25;float: right;" src="/media/icons/add_video_icon.png" alt="add video">
         </a>
         {%endif%}
-    </h3>
-    <hr>
+    </h5>
+
     {% for material_video in material.videos.all %}
-    <div style="border:1px dashed #000; margin-left: 5px;  float: left;">
+    <div class="material_container">
         {% if request.user == material.faculty.user %}
         <p style="margin: 0 10 0 0; text-align: right;">
             <a onclick="return confirm('Are you sure you want to delete this?')"
@@ -88,23 +92,22 @@
 
 </div>
 <div class="blocks">
-    <h3>Images
+    <h5>Images
         {% if request.user.is_authenticated and request.user == material.faculty.user %}
         <a href="{% url 'materials:add_image' pk=material.pk%}">
             <img style="width:25;float: right;" src="/media/icons/add_img.png" alt="add image">
         </a>
         {%endif%}
-    </h3>
-    <hr>
+    </h5>
     {% for material_image in material.images.all %}
-    <div style="border:1px dashed #000; margin-left: 5px;  float: left;">
+    <div class="material_container">
         {% if request.user == material.faculty.user %}
         <p style="margin: 0 10 0 0; text-align: right;">
             <a onclick="return confirm('Are you sure you want to delete this?')"
                 href="{% url 'materials:delete_image' pk=material.pk pk1=material_image.pk%}">X</a>
         </p>
         {%endif%}
-        <img src="{{material_image.thumbnail.url}}" class="img-thumbnail" alt="">
+        <a href="{{material_image.image.url}}"><img src="{{material_image.thumbnail.url}}" alt=""></a>
 
     </div>
     {% empty %}
