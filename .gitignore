@@ -16,6 +16,9 @@ media/material/
 media/material/thumbnail/
 media/documents/
 media/documents/material/
+
+profilepic_*.*
+
 # C extensions
 *.so
 

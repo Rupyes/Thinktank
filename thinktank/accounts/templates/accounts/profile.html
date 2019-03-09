@@ -11,7 +11,7 @@
     {% if user1.faculty.profile_picture %}
     <img src="{{ user1.faculty.profile_picture.url }}" alt="picture" width="200" class="rounded float-left" />
     {%endif%}
-    {% if not request.user.faculty.profile_picture %}
+    {% if not user1.faculty.profile_picture %}
     <img src="/media/icons/person_icon.png" style="background:#ddd;" alt="picture" width="200"
         class="rounded float-left" />
     {%endif%}
