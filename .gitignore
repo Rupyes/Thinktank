@@ -7,7 +7,12 @@ __pycache__/
 .DS_Store
 .vscode/
 secret.py
-
+media/images/profile
+media/images/event
+media/videos/event/
+media/videos/material/
+media/material/
+media/documents/
 # C extensions
 *.so
 
