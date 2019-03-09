@@ -39,7 +39,7 @@ def contact(request):
                 subject,
                 msg,
                 from_email,
-                ["konaseemathinktank2019@gmail.com", "g_jena@rediffmail.com"],
+                ["konaseemathinktank2019@gmail.com", "g_jena@rediffmail.com", ],
                 fail_silently=False,
             )
             return HttpResponseRedirect('/thanks/')
