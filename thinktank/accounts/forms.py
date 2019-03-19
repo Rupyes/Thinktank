@@ -1,5 +1,5 @@
 from django import forms
-from .models import MyUser, Student, Faculty, DEPARTMENTS, SEX
+from .models import MyUser, Student, Faculty, DEPARTMENTS, SEX, College, University
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from django.contrib.auth import get_user_model
 from django.db.models import Q
@@ -21,8 +21,9 @@ class StudentSignUpForm(UserCreationForm):
         label="Date of Birth",
         widget=forms.DateInput(
             format=('%Y-%m-%d'), attrs={'placeholder': 'YYYY-MM-DD', 'class': 'form-control'}))
-    college = forms.CharField(label="College", max_length=255, widget=forms.TextInput(
-        attrs={'class': 'form-control'}))
+    # college = forms.CharField(label="College", max_length=255, widget=forms.TextInput(
+    #     attrs={'class': 'form-control'}))
+    college = forms.ModelChoiceField(queryset=College.objects.all(), initial=0)
     email = forms.EmailField(label="Email Address", max_length=255, widget=forms.TextInput(
         attrs={'class': 'form-control'}))
     department = forms.ChoiceField(
@@ -31,8 +32,10 @@ class StudentSignUpForm(UserCreationForm):
         initial='',
         widget=forms.Select(attrs={'class': 'form-control'}),
         required=True)
-    university = forms.CharField(label="University", max_length=255, widget=forms.TextInput(
-        attrs={'class': 'form-control'}))
+    # university = forms.CharField(label="University", max_length=255, widget=forms.TextInput(
+    #     attrs={'class': 'form-control'}))
+    university = forms.ModelChoiceField(
+        queryset=University.objects.all(), initial=0)
 
     class Meta:
         model = User
@@ -104,8 +107,7 @@ class FacultySignUpForm(UserCreationForm):
         label="Date of Birth",
         widget=forms.DateInput(
             format=('%Y-%m-%d'), attrs={'placeholder': 'YYYY-MM-DD', 'class': 'form-control'}))
-    college = forms.CharField(label="College", max_length=255, widget=forms.TextInput(
-        attrs={'class': 'form-control'}))
+    college = forms.ModelChoiceField(queryset=College.objects.all(), initial=0)
     email = forms.EmailField(label="Email Address", max_length=255,
                              widget=forms.TextInput(attrs={'class': 'form-control'}))
     department = forms.ChoiceField(
@@ -114,8 +116,8 @@ class FacultySignUpForm(UserCreationForm):
         initial='',
         widget=forms.Select(attrs={'class': 'form-control'}),
         required=True)
-    university = forms.CharField(label="University", max_length=255, widget=forms.TextInput(
-        attrs={'class': 'form-control'}))
+    university = forms.ModelChoiceField(
+        queryset=University.objects.all(), initial=0)
 
     class Meta:
         model = User

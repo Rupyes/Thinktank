@@ -38,6 +38,23 @@ class MyUser(AbstractUser):
         return self.username
 
 
+class College(models.Model):
+    name = models.CharField(max_length=300)
+
+    def __str__(self):
+        return self.name
+
+
+class University(models.Model):
+    name = models.CharField(max_length=300)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name_plural = 'universities'
+
+
 class Student(models.Model):
     class Meta:
         verbose_name_plural = 'students'
@@ -51,9 +68,10 @@ class Student(models.Model):
     last_name = models.CharField(max_length=255)
     gender = models.CharField(max_length=1, choices=SEX)
     date_of_birth = models.DateField(blank=False)
-    college = models.CharField(max_length=255)
+    college = models.ForeignKey(College, on_delete=models.SET_NULL, null=True)
     department = models.CharField(max_length=5, choices=DEPARTMENTS)
-    university = models.CharField(max_length=255, blank=True)
+    university = models.ForeignKey(
+        University, on_delete=models.SET_NULL, null=True)
 
     def get_full_name(self):
         if self.middle_name == "":
@@ -83,9 +101,10 @@ class Faculty(models.Model):
     last_name = models.CharField(max_length=255)
     gender = models.CharField(max_length=1, choices=SEX)
     date_of_birth = models.DateField()
-    college = models.CharField(max_length=255)
+    college = models.ForeignKey(College, on_delete=models.SET_NULL, null=True)
     department = models.CharField(max_length=5, choices=DEPARTMENTS)
-    university = models.CharField(max_length=255, blank=True)
+    university = models.ForeignKey(
+        University, on_delete=models.SET_NULL, null=True)
 
     def __str__(self):
         return self.user.username
