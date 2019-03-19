@@ -27,6 +27,9 @@ class Configuration(models.Model):
     created_date = models.DateTimeField(auto_now_add=True)
     updated_date = models.DateTimeField(auto_now=True)
 
+    def get_absolute_url(self):
+        return reverse("softwares:configuration_detail", kwargs={'pk': self.pk})
+
     def __str__(self):
         return self.title
 
@@ -39,6 +42,9 @@ class WorkingProject(models.Model):
     created_date = models.DateTimeField(auto_now_add=True)
     updated_date = models.DateTimeField(auto_now=True)
 
+    def get_absolute_url(self):
+        return reverse("softwares:workproj_detail", kwargs={'pk': self.pk})
+
     def __str__(self):
         return self.title
 
@@ -49,6 +55,9 @@ class Technology(models.Model):
     description = models.TextField()
     created_date = models.DateTimeField(auto_now_add=True)
     updated_date = models.DateTimeField(auto_now=True)
+
+    def get_absolute_url(self):
+        return reverse("softwares:tech_detail", kwargs={'pk': self.pk})
 
     def __str__(self):
         return self.title

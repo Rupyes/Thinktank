@@ -1,0 +1,16 @@
+{% extends 'thinktank/base.html' %}
+
+{% block title %}Detail{% endblock%}
+{% block content %}
+<h5>{{configuration.title}}</h5>
+<p>by: {{configuration.user.get_full_name}}</p>
+<hr>
+<p>{{configuration.description}}</p>
+{% if request.user.username == configuration.user.user.username %}
+<div style="float:left; width:100%">
+    <hr>
+    <a class="btn btn-primary" href="{% url 'softwares:configuration_update' pk=configuration.pk%}">Update</a>
+    <a class="btn btn-danger" href="{% url 'softwares:configuration_delete' pk=configuration.pk%}">Delete</a>
+    {% endif %}
+</div>
+{% endblock %}

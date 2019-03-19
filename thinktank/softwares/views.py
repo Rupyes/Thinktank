@@ -43,3 +43,39 @@ class SoftwareUpdateView(LoginRequiredMixin, UpdateView):
 class SoftwareDeleteView(LoginRequiredMixin, DeleteView):
     model = Software
     success_url = reverse_lazy('softwares:software_list')
+
+
+class ConfigurationCreateView(LoginRequiredMixin, CreateView):
+    login_url = '/'
+    redirect_field_name = 'softwares/software_detail.html'
+    form_class = ConfigurationForm
+    model = Configuration
+
+    def form_valid(self, form):
+        self.object = form.save(commit=False)
+        self.object.user = self.request.user.faculty
+        self.object.save()
+        return super().form_valid(form)
+
+
+class ConfigurationListView(ListView):
+    model = Configuration
+
+    def get_queryset(self):
+        return Configuration.objects.all()
+
+
+class ConfigurationDetailView(DetailView):
+    model = Configuration
+
+
+class ConfigurationUpdateView(LoginRequiredMixin, UpdateView):
+    login_url = '/'
+    redirect_field_name = 'softwares/configuration_detail.html'
+    form_class = ConfigurationForm
+    model = Configuration
+
+
+class ConfigurationDeleteView(LoginRequiredMixin, DeleteView):
+    model = Configuration
+    success_url = reverse_lazy('softwares:configuration_list')

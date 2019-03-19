@@ -118,4 +118,21 @@
     Add Software
 </a>
 
+<h1>Configurations</h1>
+<hr>
+<ul>
+    {% for config in my_config_list %}
+    <li>
+        <a href="{% url 'softwares:configuration_detail' pk=config.pk%}">
+            {{ config.title}}
+        </a>
+    </li>
+    {% empty %}
+    <p>No configurations.</p>
+    {% endfor %}
+</ul>
+<a class="btn btn-dark" href="{% url 'softwares:create_configuration' %}" style="color:white">
+    Add Configuration
+</a>
+
 {% endblock %}

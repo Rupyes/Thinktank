@@ -16,7 +16,7 @@ from blogs.models import Blog
 from forums.models import Forum
 from events.models import Event
 from materials.models import Material
-from softwares.models import Software
+from softwares.models import Software, Configuration
 from .forms import (
     StudentSignUpForm,
     UserLoginForm,
@@ -185,5 +185,7 @@ class DashboardView(LoginRequiredMixin, TemplateView):
             Q(faculty__user__username__iexact=self.request.user.faculty)
         )
         context['my_software_list'] = Software.objects.filter(
+            user__user__username__iexact=self.request.user.faculty)
+        context['my_config_list'] = Configuration.objects.filter(
             user__user__username__iexact=self.request.user.faculty)
         return context

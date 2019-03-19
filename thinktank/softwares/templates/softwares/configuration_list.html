@@ -1,0 +1,10 @@
+{% extends 'thinktank/base.html' %}
+
+{% block title %}Configuartion List{% endblock%}
+{% block content %}
+{% for configuration in configuration_list %}
+<p><a href="{%url 'softwares:configuration_detail' pk=configuration.pk%}">{{configuration.title}}</a> -by:
+    {{configuration.user.get_full_name}}
+</p>
+{%empty%}<p>Not yet updated!</p>{% endfor %}
+{% endblock %}
