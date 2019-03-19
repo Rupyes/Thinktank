@@ -4,7 +4,9 @@ from .views import (SoftwareCreateView, SoftwareListView,
                     ConfigurationCreateView, ConfigurationListView,
                     ConfigurationDetailView, ConfigurationUpdateView, ConfigurationDeleteView,
                     WorkingProjectCreateView, WorkingProjectListView,
-                    WorkingProjectDetailView, WorkingProjectUpdateView, WorkingProjectDeleteView,)
+                    WorkingProjectDetailView, WorkingProjectUpdateView, WorkingProjectDeleteView,
+                    TechnologyCreateView, TechnologyListView,
+                    TechnologyDetailView, TechnologyUpdateView, TechnologyDeleteView,)
 
 app_name = "softwares"
 
@@ -36,4 +38,16 @@ urlpatterns = [
         WorkingProjectUpdateView.as_view(), name="workingproject_update"),
     url(r'^workingproject/(?P<pk>\d+)/delete/$',
         WorkingProjectDeleteView.as_view(), name="workingproject_delete"),
+
+
+    url(r'^technology/create/$', TechnologyCreateView.as_view(),
+        name="create_technology"),
+    url(r'^technology/$', TechnologyListView.as_view(),
+        name="technology_list"),
+    url(r'^technology/(?P<pk>\d+)/$',
+        TechnologyDetailView.as_view(), name="technology_detail"),
+    url(r'^technology/(?P<pk>\d+)/edit/$',
+        TechnologyUpdateView.as_view(), name="technology_update"),
+    url(r'^technology/(?P<pk>\d+)/delete/$',
+        TechnologyDeleteView.as_view(), name="technology_delete"),
 ]

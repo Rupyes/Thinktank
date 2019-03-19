@@ -57,7 +57,7 @@ class Technology(models.Model):
     updated_date = models.DateTimeField(auto_now=True)
 
     def get_absolute_url(self):
-        return reverse("softwares:tech_detail", kwargs={'pk': self.pk})
+        return reverse("softwares:technology_detail", kwargs={'pk': self.pk})
 
     def __str__(self):
         return self.title

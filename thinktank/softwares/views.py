@@ -115,3 +115,39 @@ class WorkingProjectUpdateView(LoginRequiredMixin, UpdateView):
 class WorkingProjectDeleteView(LoginRequiredMixin, DeleteView):
     model = WorkingProject
     success_url = reverse_lazy('softwares:workingproject_list')
+
+
+class TechnologyCreateView(LoginRequiredMixin, CreateView):
+    login_url = '/'
+    redirect_field_name = 'softwares/technology_detail.html'
+    form_class = TechnologyForm
+    model = Technology
+
+    def form_valid(self, form):
+        self.object = form.save(commit=False)
+        self.object.user = self.request.user.faculty
+        self.object.save()
+        return super().form_valid(form)
+
+
+class TechnologyListView(ListView):
+    model = Technology
+
+    def get_queryset(self):
+        return Technology.objects.all()
+
+
+class TechnologyDetailView(DetailView):
+    model = Technology
+
+
+class TechnologyUpdateView(LoginRequiredMixin, UpdateView):
+    login_url = '/'
+    redirect_field_name = 'softwares/technology_detail.html'
+    form_class = TechnologyForm
+    model = Technology
+
+
+class TechnologyDeleteView(LoginRequiredMixin, DeleteView):
+    model = Technology
+    success_url = reverse_lazy('softwares:technology_list')

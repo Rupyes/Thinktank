@@ -156,4 +156,22 @@
 </a>
 <hr>
 
+<h5>Technology</h5>
+<hr>
+<ul>
+    {% for tech in my_tech_list %}
+    <li>
+        <a href="{% url 'softwares:technology_detail' pk=tech.pk%}">
+            {{ tech.title}}
+        </a>
+    </li>
+    {% empty %}
+    <p>No technology.</p>
+    {% endfor %}
+</ul>
+<a class="btn btn-dark" href="{% url 'softwares:create_technology' %}" style="color:white">
+    Add Technology
+</a>
+<hr>
+
 {% endblock %}

@@ -1,0 +1,16 @@
+{% extends 'thinktank/base.html' %}
+
+{% block title %}Detail{% endblock%}
+{% block content %}
+<h5>{{technology.title}}</h5>
+<p>by: {{technology.user.get_full_name}}</p>
+<hr>
+<p>{{technology.description}}</p>
+{% if request.user.username == technology.user.user.username %}
+<div style="float:left; width:100%">
+    <hr>
+    <a class="btn btn-primary" href="{% url 'softwares:technology_update' pk=technology.pk%}">Update</a>
+    <a class="btn btn-danger" href="{% url 'softwares:technology_delete' pk=technology.pk%}">Delete</a>
+    {% endif %}
+</div>
+{% endblock %}
