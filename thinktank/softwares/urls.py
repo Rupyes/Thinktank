@@ -2,7 +2,9 @@ from django.conf.urls import url
 from .views import (SoftwareCreateView, SoftwareListView,
                     SoftwareDetailView, SoftwareUpdateView, SoftwareDeleteView,
                     ConfigurationCreateView, ConfigurationListView,
-                    ConfigurationDetailView, ConfigurationUpdateView, ConfigurationDeleteView,)
+                    ConfigurationDetailView, ConfigurationUpdateView, ConfigurationDeleteView,
+                    WorkingProjectCreateView, WorkingProjectListView,
+                    WorkingProjectDetailView, WorkingProjectUpdateView, WorkingProjectDeleteView,)
 
 app_name = "softwares"
 
@@ -23,4 +25,15 @@ urlpatterns = [
         ConfigurationUpdateView.as_view(), name="configuration_update"),
     url(r'^confiuration/(?P<pk>\d+)/delete/$',
         ConfigurationDeleteView.as_view(), name="configuration_delete"),
+
+    url(r'^workingproject/create/$', WorkingProjectCreateView.as_view(),
+        name="create_workingproject"),
+    url(r'^workingproject/$', WorkingProjectListView.as_view(),
+        name="workingproject_list"),
+    url(r'^workingproject/(?P<pk>\d+)/$',
+        WorkingProjectDetailView.as_view(), name="workingproject_detail"),
+    url(r'^workingproject/(?P<pk>\d+)/edit/$',
+        WorkingProjectUpdateView.as_view(), name="workingproject_update"),
+    url(r'^workingproject/(?P<pk>\d+)/delete/$',
+        WorkingProjectDeleteView.as_view(), name="workingproject_delete"),
 ]

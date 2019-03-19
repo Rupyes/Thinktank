@@ -79,3 +79,39 @@ class ConfigurationUpdateView(LoginRequiredMixin, UpdateView):
 class ConfigurationDeleteView(LoginRequiredMixin, DeleteView):
     model = Configuration
     success_url = reverse_lazy('softwares:configuration_list')
+
+
+class WorkingProjectCreateView(LoginRequiredMixin, CreateView):
+    login_url = '/'
+    redirect_field_name = 'softwares/workingproject_detail.html'
+    form_class = WorkingProjectForm
+    model = WorkingProject
+
+    def form_valid(self, form):
+        self.object = form.save(commit=False)
+        self.object.user = self.request.user.faculty
+        self.object.save()
+        return super().form_valid(form)
+
+
+class WorkingProjectListView(ListView):
+    model = WorkingProject
+
+    def get_queryset(self):
+        return WorkingProject.objects.all()
+
+
+class WorkingProjectDetailView(DetailView):
+    model = WorkingProject
+
+
+class WorkingProjectUpdateView(LoginRequiredMixin, UpdateView):
+    login_url = '/'
+    redirect_field_name = 'softwares/workingproject_detail.html'
+    form_class = WorkingProjectForm
+    model = WorkingProject
+
+
+class WorkingProjectDeleteView(LoginRequiredMixin, DeleteView):
+    model = WorkingProject
+    success_url = reverse_lazy('softwares:workingproject_list')

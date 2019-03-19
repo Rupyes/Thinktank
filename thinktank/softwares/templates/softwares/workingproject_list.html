@@ -1,0 +1,10 @@
+{% extends 'thinktank/base.html' %}
+
+{% block title %}Working Projects{% endblock%}
+{% block content %}
+{% for workingproject in workingproject_list %}
+<p><a href="{%url 'softwares:workingproject_detail' pk=workingproject.pk%}">{{workingproject.title}}</a> -by:
+    {{workingproject.user.get_full_name}}
+</p>
+{%empty%}<p>Not yet updated!</p>{% endfor %}
+{% endblock %}

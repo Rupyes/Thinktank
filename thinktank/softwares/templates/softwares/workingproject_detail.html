@@ -1,0 +1,17 @@
+{% extends 'thinktank/base.html' %}
+
+{% block title %}Detail{% endblock%}
+{% block content %}
+<h5>{{workingproject.title}}</h5>
+<p>by: {{workingproject.user.get_full_name}}</p>
+<hr>
+<p>{{workingproject.description}}</p>
+<p>Technology used: {{workingproject.tech_used}}</p>
+{% if request.user.username == workingproject.user.user.username %}
+<div style="float:left; width:100%">
+    <hr>
+    <a class="btn btn-primary" href="{% url 'softwares:workingproject_update' pk=workingproject.pk%}">Update</a>
+    <a class="btn btn-danger" href="{% url 'softwares:workingproject_delete' pk=workingproject.pk%}">Delete</a>
+    {% endif %}
+</div>
+{% endblock %}

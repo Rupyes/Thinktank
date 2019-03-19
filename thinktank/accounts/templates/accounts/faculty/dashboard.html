@@ -4,11 +4,11 @@
 
 {% block content %}
 {% if user.is_faculty %}
-<h2>Your Dashboard</h2>
+<h4>Your Dashboard</h4>
 <hr>
 <br>
 
-<h1>Blogs</h1>
+<h5>Blogs</h5>
 <hr>
 <ul>
     {% for blog in my_blog_list %}
@@ -28,7 +28,7 @@
 <hr>
 
 
-<h1>Forums</h1>
+<h5>Forums</h5>
 <hr>
 <ul>
     {% for forum in my_forum_list %}
@@ -47,7 +47,7 @@
 <hr>
 
 
-<h1>Events</h1>
+<h5>Events</h5>
 <hr>
 <ul>
     {% for event in my_event_list %}
@@ -65,7 +65,7 @@
 <hr>
 
 
-<h1>Materials</h1>
+<h5>Materials</h5>
 <hr>
 <ul>
     {% for material in my_material_list %}
@@ -84,7 +84,7 @@
 
 <hr>
 
-<h1>Gate Materials</h1>
+<h5>Gate Materials</h5>
 <hr>
 <ul>
     {% for gmaterial in my_gatematerial_list %}
@@ -100,8 +100,9 @@
 <a class="btn btn-dark" href="{% url 'materials:add_gatematerial' %}" style="color:white">
     Add Gate Notes
 </a>
+<hr>
 
-<h1>Softwares</h1>
+<h5>Softwares</h5>
 <hr>
 <ul>
     {% for software in my_software_list %}
@@ -117,8 +118,9 @@
 <a class="btn btn-dark" href="{% url 'softwares:create_software' %}" style="color:white">
     Add Software
 </a>
+<hr>
 
-<h1>Configurations</h1>
+<h5>Configurations</h5>
 <hr>
 <ul>
     {% for config in my_config_list %}
@@ -134,5 +136,24 @@
 <a class="btn btn-dark" href="{% url 'softwares:create_configuration' %}" style="color:white">
     Add Configuration
 </a>
+<hr>
+
+<h5>Working Projects</h5>
+<hr>
+<ul>
+    {% for prj in my_workprj_list %}
+    <li>
+        <a href="{% url 'softwares:workingproject_detail' pk=prj.pk%}">
+            {{ prj.title}}
+        </a>
+    </li>
+    {% empty %}
+    <p>No projects.</p>
+    {% endfor %}
+</ul>
+<a class="btn btn-dark" href="{% url 'softwares:create_workingproject' %}" style="color:white">
+    Add Project
+</a>
+<hr>
 
 {% endblock %}
