@@ -1,0 +1,16 @@
+{% extends 'thinktank/base.html' %}
+
+{% block title %}Detail{% endblock%}
+{% block content %}
+<h5>{{software.title}}</h5>
+<p>by: {{software.user.get_full_name}}</p>
+<hr>
+<p>{{software.description}}</p>
+{% if request.user.username == software.user.user.username %}
+<div style="float:left; width:100%">
+    <hr>
+    <a class="btn btn-primary" href="{% url 'softwares:software_update' pk=software.pk%}">Update</a>
+    <a class="btn btn-danger" href="{% url 'softwares:software_delete' pk=software.pk%}">Delete</a>
+    {% endif %}
+</div>
+{% endblock %}

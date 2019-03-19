@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'blogs',
     'forums',
     'events',
+    'softwares',
     'materials',
     'django_cleanup',
 ]

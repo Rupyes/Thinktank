@@ -1,0 +1,10 @@
+{% extends 'thinktank/base.html' %}
+
+{% block title %}Software List{% endblock%}
+{% block content %}
+{% for software in software_list %}
+<p><a href="{%url 'softwares:software_detail' pk=software.pk%}">{{software.title}}</a> -by:
+    {{software.user.get_full_name}}
+</p>
+{%empty%}<p>Not yet updated!</p>{% endfor %}
+{% endblock %}

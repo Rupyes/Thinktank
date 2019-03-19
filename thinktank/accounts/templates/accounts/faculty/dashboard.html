@@ -101,4 +101,21 @@
     Add Gate Notes
 </a>
 
+<h1>Softwares</h1>
+<hr>
+<ul>
+    {% for software in my_software_list %}
+    <li>
+        <a href="{% url 'softwares:software_detail' pk=software.pk%}">
+            {{ software.title}}
+        </a>
+    </li>
+    {% empty %}
+    <p>No softwares.</p>
+    {% endfor %}
+</ul>
+<a class="btn btn-dark" href="{% url 'softwares:create_software' %}" style="color:white">
+    Add Software
+</a>
+
 {% endblock %}
