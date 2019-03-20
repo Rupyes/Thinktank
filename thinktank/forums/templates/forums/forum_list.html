@@ -51,10 +51,10 @@
                 <div class="user_name_on_list">
                     <p>{{forum.questioner}} <br>
                         {% if forum.questioner.is_student %}
-                        student, {{forum.questioner.student.department}}
+                        <span class="badge badge-secondary">student</span>
                         {% endif %}
                         {% if forum.questioner.is_faculty %}
-                        faculty, {{forum.questioner.faculty.department}}
+                        <span class="badge badge-secondary">faculty</span>
                         {% endif %}
                     </p>
                 </div>

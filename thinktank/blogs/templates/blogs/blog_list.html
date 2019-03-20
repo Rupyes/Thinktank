@@ -6,8 +6,13 @@
 <h4>Blogs</h4>
 <hr>
 {% for blog in blog_list %}
-<h4><a href="{% url 'blogs:blog_detail' pk=blog.pk%}">{{blog.title}}</a> {{blog.created_date|timesince}} ago.
-    [{{blog.user.department}}]</h4>
+<div class="card" style="padding:10px;">
+    <h5><a href="{% url 'blogs:blog_detail' pk=blog.pk%}">{{blog.title}}</a></h5>
+    <p style="font-size:14px; margin:0px;">
+        <a href="{% url 'accounts:profile' username=blog.user%}">{{blog.user.get_full_name}}</a> <span
+            class="badge badge-secondary">{{blog.user.department}}</span>
+        - {{blog.created_date|timesince}} ago. </p>
+</div>
 {% empty %}
 <p>No blog posted yet.</p>
 {% endfor %}

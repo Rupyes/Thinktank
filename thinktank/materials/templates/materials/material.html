@@ -9,8 +9,9 @@
 <p style="background: white; padding: 10px; font-size: 18px;">
     <a href="{% url 'materials:material_detail' pk=note.pk%}">{{note.title}}</a>
     <text style="font-size: 14px;">- by <a style="color: maroon;"
-            href="{% url 'accounts:profile' username=note.faculty%}">{{note.faculty.get_full_name}}</a></text>
+            href="{% url 'accounts:profile' username=note.faculty%}">{{note.faculty.get_full_name}}</a></text> <br>
     <span class="badge badge-primary">{{note.faculty.department}}</span>
+    <br>
     <br><a href="{% url 'materials:material_detail' pk=note.pk%}" class="btn btn-success">Detail</a>
 </p>
 {%empty%}
@@ -22,8 +23,9 @@
 <p style="background: white; padding: 10px; font-size: 18px;">
     <a href="{% url 'materials:material_detail' pk=gate.pk%}">{{gate.title}}</a>
     <text style="font-size: 14px;">by <a style="color: maroon;"
-            href="{% url 'accounts:profile' username=gate.faculty%}">{{ gate.faculty.get_full_name}}</a></text>
+            href="{% url 'accounts:profile' username=gate.faculty%}">{{ gate.faculty.get_full_name}}</a></text> <br>
     <span class="badge badge-primary">{{gate.faculty.department}}</span>
+    <br>
     <br><a href="{% url 'materials:material_detail' pk=gate.pk%}" class="btn btn-success">Detail</a>
 </p>
 {%empty%}
