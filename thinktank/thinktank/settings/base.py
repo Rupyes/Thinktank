@@ -143,3 +143,6 @@ EMAIL_HOST_USER = 'konaseemathinktank2019@gmail.com'
 EMAIL_HOST_PASSWORD = 'thisisourthinktank2019'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
+
+USE_TZ = True
+TIME_ZONE = 'Asia/Kolkata'
