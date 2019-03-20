@@ -18,7 +18,7 @@
 </div>
 <div class="user_desc" style="float:left; margin-left: 20px;">
     <h4>{{user1.faculty.get_full_name}}</h4>
-    <p>{{user1.email}} <br> <b>{{user1.faculty.get_department_display}}</b>
+    <p>{{user1.email}} <br> <b>{{user1.faculty.department}}</b>
         <span class="badge badge-primary">Faculty</span>
         <br>{{user1.faculty.get_gender_display}}, {{user1.faculty.college}}
     </p>
@@ -51,7 +51,7 @@
 </div>
 <div class="user_desc" style="float:left; margin-left: 20px;">
     <h4>{{user1.student.get_full_name}}</h4>
-    <p>{{user1.email}} <br> <b>{{user1.student.get_department_display}}</b>
+    <p>{{user1.email}} <br> <b>{{user1.student.department}}</b>
         <span class="badge badge-secondary">Student</span>
         <br>{{user1.student.get_gender_display}}, {{user1.student.college}}
     </p>

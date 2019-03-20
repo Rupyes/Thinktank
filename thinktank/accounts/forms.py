@@ -1,5 +1,5 @@
 from django import forms
-from .models import MyUser, Student, Faculty, DEPARTMENTS, SEX, College, University
+from .models import MyUser, Student, Faculty, DEPARTMENTS, SEX, College, University, Department
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from django.contrib.auth import get_user_model
 from django.db.models import Q
@@ -26,12 +26,8 @@ class StudentSignUpForm(UserCreationForm):
     college = forms.ModelChoiceField(queryset=College.objects.all(), initial=0)
     email = forms.EmailField(label="Email Address", max_length=255, widget=forms.TextInput(
         attrs={'class': 'form-control'}))
-    department = forms.ChoiceField(
-        label="Department",
-        choices=DEPARTMENTS,
-        initial='',
-        widget=forms.Select(attrs={'class': 'form-control'}),
-        required=True)
+    department = forms.ModelChoiceField(
+        queryset=Department.objects.all(), initial=0)
     # university = forms.CharField(label="University", max_length=255, widget=forms.TextInput(
     #     attrs={'class': 'form-control'}))
     university = forms.ModelChoiceField(
@@ -110,12 +106,8 @@ class FacultySignUpForm(UserCreationForm):
     college = forms.ModelChoiceField(queryset=College.objects.all(), initial=0)
     email = forms.EmailField(label="Email Address", max_length=255,
                              widget=forms.TextInput(attrs={'class': 'form-control'}))
-    department = forms.ChoiceField(
-        label="Department",
-        choices=DEPARTMENTS,
-        initial='',
-        widget=forms.Select(attrs={'class': 'form-control'}),
-        required=True)
+    department = forms.ModelChoiceField(
+        queryset=Department.objects.all(), initial=0)
     university = forms.ModelChoiceField(
         queryset=University.objects.all(), initial=0)
 

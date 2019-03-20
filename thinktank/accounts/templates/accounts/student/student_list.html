@@ -21,7 +21,7 @@
     <div class="media-body">
         <h5 class="mt-0 mb-1"><a href="{% url 'accounts:profile' username=student%}">{{ student.get_full_name }}</a>
         </h5>
-        <p style="margin:0; font-size: 14px;">{{student.get_department_display}}, {{student.university}}</p>
+        <p style="margin:0; font-size: 14px;">{{student.department}}, {{student.university}}</p>
     </div>
 </li>
 

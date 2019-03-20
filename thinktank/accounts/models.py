@@ -55,6 +55,13 @@ class University(models.Model):
         verbose_name_plural = 'universities'
 
 
+class Department(models.Model):
+    name = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.name
+
+
 class Student(models.Model):
     class Meta:
         verbose_name_plural = 'students'
@@ -69,7 +76,8 @@ class Student(models.Model):
     gender = models.CharField(max_length=1, choices=SEX)
     date_of_birth = models.DateField(blank=False)
     college = models.ForeignKey(College, on_delete=models.SET_NULL, null=True)
-    department = models.CharField(max_length=5, choices=DEPARTMENTS)
+    department = models.ForeignKey(
+        Department, on_delete=models.SET_NULL, null=True)
     university = models.ForeignKey(
         University, on_delete=models.SET_NULL, null=True)
 
@@ -102,7 +110,8 @@ class Faculty(models.Model):
     gender = models.CharField(max_length=1, choices=SEX)
     date_of_birth = models.DateField()
     college = models.ForeignKey(College, on_delete=models.SET_NULL, null=True)
-    department = models.CharField(max_length=5, choices=DEPARTMENTS)
+    department = models.ForeignKey(
+        Department, on_delete=models.SET_NULL, null=True)
     university = models.ForeignKey(
         University, on_delete=models.SET_NULL, null=True)
 
