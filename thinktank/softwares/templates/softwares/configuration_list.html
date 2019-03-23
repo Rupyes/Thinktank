@@ -3,8 +3,13 @@
 {% block title %}Configuartion List{% endblock%}
 {% block content %}
 {% for configuration in configuration_list %}
-<p><a href="{%url 'softwares:configuration_detail' pk=configuration.pk%}">{{configuration.title}}</a> -by:
-    {{configuration.user.get_full_name}}
-</p>
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title"><a
+                href="{%url 'softwares:configuration_detail' pk=configuration.pk%}">{{configuration.title}}</a></h5>
+        <p class="card-text"> by: {{configuration.user.get_full_name}} </p>
+    </div>
+</div>
+
 {%empty%}<p>Not yet updated!</p>{% endfor %}
 {% endblock %}

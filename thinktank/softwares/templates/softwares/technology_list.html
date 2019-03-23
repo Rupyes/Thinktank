@@ -3,8 +3,12 @@
 {% block title %}Technologies{% endblock%}
 {% block content %}
 {% for technology in technology_list %}
-<p><a href="{%url 'softwares:technology_detail' pk=technology.pk%}">{{technology.title}}</a> -by:
-    {{technology.user.get_full_name}}
-</p>
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title"><a href="{%url 'softwares:technology_detail' pk=technology.pk%}">{{technology.title}}</a>
+        </h5>
+        <p class="card-text"> by: {{technology.user.get_full_name}} </p>
+    </div>
+</div>
 {%empty%}<p>Not yet updated!</p>{% endfor %}
 {% endblock %}

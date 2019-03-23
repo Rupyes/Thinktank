@@ -3,8 +3,13 @@
 {% block title %}Working Projects{% endblock%}
 {% block content %}
 {% for workingproject in workingproject_list %}
-<p><a href="{%url 'softwares:workingproject_detail' pk=workingproject.pk%}">{{workingproject.title}}</a> -by:
-    {{workingproject.user.get_full_name}}
-</p>
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title"><a
+                href="{%url 'softwares:workingproject_detail' pk=workingproject.pk%}">{{workingproject.title}}</a>
+        </h5>
+        <p class="card-text"> by: {{workingproject.user.get_full_name}} </p>
+    </div>
+</div>
 {%empty%}<p>Not yet updated!</p>{% endfor %}
 {% endblock %}

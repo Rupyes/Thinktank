@@ -3,8 +3,13 @@
 {% block title %}Software List{% endblock%}
 {% block content %}
 {% for software in software_list %}
-<p><a href="{%url 'softwares:software_detail' pk=software.pk%}">{{software.title}}</a> -by:
-    {{software.user.get_full_name}}
-</p>
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title"><a href="{%url 'softwares:software_detail' pk=software.pk%}">{{software.title}}</a></h5>
+        <p class="card-text"> by: {{software.user.get_full_name}}
+        </p>
+    </div>
+</div>
+
 {%empty%}<p>Not yet updated!</p>{% endfor %}
 {% endblock %}
